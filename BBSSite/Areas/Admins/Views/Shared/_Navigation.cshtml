@@ -1,0 +1,134 @@
+﻿@{
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="@Urls.ContentCssUrl/AdminsPublic.css" />
+    <link rel="stylesheet" href="@Urls.ContentCssUrl/Navigation.css" />
+    <link rel="stylesheet" href="@Urls.ContentBootstrapUrl/bootstrap.min.css" />
+    @RenderSection("link", false)
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="navbar navbar-duomi navbar-static-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="" id="logo">
+                    程序源论坛后台管理系统
+                </a>
+                <div class="text-right">
+                    <span class="LoginInfo">
+                        @{ var Info = HttpContext.Current.User as BBSSite.MyPublic.MyFormsPrincipal<BBSSite.MyPublic.MyUserDataPrincipal>; }
+                        欢迎您:@Info.UserData.NickName,现在是 <time>@DateTime.Now</time>
+                    </span>
+                    <a class="LoginOut" href="~/Admins/Users/LoginOut">退出登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
+                    @{
+                        string RawUrl = BBSSite.MyPublic.PublicFunctions.GetRawUrl(Request);
+                        IList<BBSSite.Areas.Admins.ViewModels.RoleJoinColumnEntity> ColumnList = BBSSite.MyPublic.PublicService.GettingColumn(RawUrl);
+                        int Index = 0;
+                        string CurController = "", CurAction = "";
+                        bool PreviousIsUrlNull = false;
+                    }
+
+                    @foreach (var Column in ColumnList)
+                    {
+                        if (Column.IsClassA)
+                        {
+                            if (Index > 0)
+                            {
+                                if (!PreviousIsUrlNull)
+                                {
+                                    string endul = "</ul>";
+                                    @Html.Raw(endul)
+                                }
+                                string endli = "</li>";
+                                @Html.Raw(endli)
+                            }
+                            if (Column.IsSelectedA)
+                            {
+                                CurController = Column.ColumnName;
+                            }
+                            string stali = "<li " + (Column.IsSelectedA ? "class='active'" : "") + ">";
+                            @Html.Raw(stali)
+                            string staa = "<a " + (!Column.IsUrlNull ? "href='#" + Column.Url + "'" : "onclick=\"location.href='/admins'\"") + " data-toggle='collapse' " + (Column.IsSelectedA ? "class='nav-header' aria-expanded='true'" : "class='nav-header collapsed'") + ">";
+                            @Html.Raw(staa)
+                            string i = "<i class='glyphicon " + Column.LogoClassName + "'></i>&nbsp;";
+                            @Html.Raw(i)
+                            @Html.Raw(Column.ColumnName)
+                            string span = "<span class='pull-right glyphicon glyphicon-chevron-down'></span>";
+                            @Html.Raw(span)
+                            string enda = "</a>";
+                            @Html.Raw(enda)
+                            if (!Column.IsUrlNull)
+                            {
+                                PreviousIsUrlNull = false;
+                                string staul = "<ul id='" + Column.Url + "' " + (Column.IsSelectedA ? "class='nav nav - list secondmenu collapse in' style='' aria-expanded='true'" : "class='nav nav-list secondmenu collapse' style='height: 0px;'") + ">";
+                                @Html.Raw(staul)
+                            }
+                            else
+                            {
+                                PreviousIsUrlNull = true;
+                            }
+                        }
+                        else
+                        {
+                            string stalia = "<li><a href='" + Column.Url + "' " + (Column.IsSelected ? "style='color:#9f9ca8'" : "") + "><i class='glyphicon " + Column.LogoClassName + "'></i>&nbsp;" + Column.ColumnName + "</a></li>";
+                            @Html.Raw(@stalia)
+                            if (Column.IsSelected)
+                            {
+                                CurAction = Column.ColumnName;
+                            }
+                        }
+                        Index++;
+                    }
+                    @{
+                        if (!ColumnList[ColumnList.Count - 1].IsUrlNull)
+                        {
+                            string overul = "</ul>";
+                            @Html.Raw(overul)
+                        }
+                        string overli = "</li>";
+                        @Html.Raw(overli)
+                    }
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-12 mynav">当前位置: @CurController > <a>@CurAction</a></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer navbar-fixed-bottom bg-info-admin">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span><a href="http://www.mingrisoft.com/">明日科技</a></span> |
+                        <span>Copyright &copy; <a href="http://www.mingrisoft.com/">吉林省明日科技有限公司</a></span> |
+                        <span>吉ICP备16003039号-1</span>
+                        <span>站长QQ:80303857</span>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </footer>
+        <script src="@Urls.ScriptUrl/jquery-3.1.1.min.js"></script>
+        <script src="@Urls.ScriptUrl/bootstrap.min.js"></script>
+</body>
+</html>
+@RenderSection("endsrc", false)

@@ -1,0 +1,52 @@
+﻿@model BBSSite.Areas.Admins.ViewModels.LoginAdminEntity
+@{
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>管理员登录</title>
+    <link rel="stylesheet" href="@Urls.ContentBootstrapUrl/bootstrap.min.css" />
+    <link rel="stylesheet" href="@Urls.ContentCssUrl/admins/Public.css" />
+</head>
+<body style="background-image:url(@Urls.ContentImagesUrl/loginBack.png)">
+    @using (Html.BeginForm("InnerDoLogin", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container toppx">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">用户名</span>
+                        @Html.TextBoxFor(TB => TB.UserName, new { @class = "form-control" ,style="width:300px" })
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">密&nbsp;&nbsp;&nbsp;码</span>
+                        @Html.PasswordFor(TB => TB.UserPassword, new { @class = "form-control", style = "width:300px" })
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-10 text-center">
+                    <input type="submit" name="sublogin" class="OnLogin" value="登录"/>
+                    @Html.ValidationMessage("LoginError", new { style = "color:red;" })
+                </div>
+            </div>
+        </div>
+    }
+    <script src="@Urls.ScriptUrl/jquery-3.1.1.min.js"></script>
+    <script src="@Urls.ScriptUrl/bootstrap.min.js"></script>
+</body>
+</html>

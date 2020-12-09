@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "子板块列表";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section link{
+    <link rel="stylesheet" href="@Urls.ContentCssUrl/admins/Public.css" />
+    <link rel="stylesheet" href="@Urls.ContentBootstrapUrl/bootstrap-table.css" />
+}
+<div class="col-md-9" role="main">
+    <div>
+        <div class="page-header">
+            <h1 id="basic-table">@ViewBag.AreaName</h1>
+            <div class="text-right"><button class="btn-lg" onclick="location.href = '/admins/Section/CreateSectionChild/@ViewBag.id'">创建专区</button></div>
+        </div>
+        <div class="bs-example">
+            <table id="TabList"></table>
+        </div>
+    </div>
+</div>
+@section endsrc{
+    <script type="text/javascript" src="@Urls.ScriptUrl/bootstrap-table.js"></script>
+    <script type="text/javascript" src="@Urls.ScriptUrl/bootstrap-table-zh-CN.js"></script>
+    <script type="text/javascript" src="@Urls.ContentJSUrl/SectionChildList.js"></script>
+}
+<input type="hidden" id="CurID" value="@ViewBag.id"/>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="SettingBanzhu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ForumClassifyID="0">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">设置版主</h4>
+            </div>
+            <div class="modal-body">
+                <div class="item-list">
+                    @{
+                        IList<BBSSite.Models.SP_Get_UsersByCustomer_NotTargetForumClassify_Result> iList = BBSSite.MyPublic.PublicService.GetUsersByCustomer_NotTargetForumClassify();
+                    }
+                    @foreach (var List in iList)
+                    {
+                        <div>
+                            <span class="item-list-radio"><input type="radio" name="UserID" value="@List.ID" onclick="SettingModerator(@List.ID)" /></span>
+                            <span class="item-list-text">@List.UserName</span>
+                            <span class="item-list-text">@List.NickName</span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

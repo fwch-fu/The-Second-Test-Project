@@ -1,0 +1,225 @@
+﻿@model BBSSite.ViewModels.RegistUsersByCustomerEntity
+@{
+    Layout = "";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>明日科技-注册</title>
+    <link href="@Urls.ContentBootstrapUrl/bootstrap.min.css" rel="stylesheet">
+    <script src="@Urls.ScriptUrl/jquery-3.1.1.min.js"></script>
+    <script src="@Urls.ScriptUrl/bootstrap.min.js"></script>
+    <script type="text/javascript" src="@Urls.ContentJSUrl/login.js?v=0.3"></script>
+    <style type="text/css">
+        html, body {
+            height: 841px;
+        }
+        .box {
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6699FF', endColorstr='#6699FF'); /*  IE */
+            background-image: linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image: -o-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image: -moz-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image: -webkit-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image: -ms-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            margin: 0 auto;
+            position: relative;
+            width: 100%;
+            height: 841px;
+        }
+        .login-box {
+            width: 100%;
+            max-width: 500px;
+            height: 666px;
+            position: absolute;
+            top: 175px;
+        }
+        @@media screen and (min-width:500px) {
+            .login-box {
+                left: 50%;
+                /*设置负值，为要定位子盒子的一半宽度*/
+                margin-left: -250px;
+            }
+        }
+
+        .form {
+            width: 100%;
+            max-width: 500px;
+            height: 275px;
+            margin: 25px auto 0px auto;
+            padding-top: 15px;
+        }
+
+        .login-content {
+            height: 500px;
+            width: 100%;
+            max-width: 500px;
+            background-color: rgba(255, 250, 2550, .6);
+            float: left;
+        }
+        .col-xs-12 {
+            height:35px;
+        }
+        .input-group {
+            margin: 0px 0px 30px 0px !important;
+        }
+
+        .form-control,.input-group {
+            height: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 0px !important;
+            height:60px;
+        }
+
+        .login-title {
+            padding:5px 5px;
+            background-color: rgba(0, 0, 0, .6);
+            height:50px;
+        }
+
+        .login-title h2 {
+            margin-top: 5px !important;
+        }
+
+        .login-title small {
+            color: #fff;
+        }
+
+        .link {
+            line-height: 20px;
+        }
+
+        .btn-sm {
+            padding: 8px 24px !important;
+            font-size: 16px !important;
+        }
+        .well {
+            height:55px;
+            min-height:60px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="box" style="background-image: url('@Urls.ContentImagesUrl/loginBack.png');background-size:100%;">
+        <div class="login-box">
+            <div class="login-title text-center">
+                <h2>
+                    <small>
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { style = "color:Red" })
+                        @Html.ValidationMessageFor(model => model.UserPassword, "", new { style = "color:Red" })
+                        @Html.ValidationMessageFor(model => model.UserRePassword, "", new { style = "color:Red" })
+                        @Html.ValidationMessageFor(model => model.NickName, "", new { style = "color:Red" })
+                        @Html.ValidationMessageFor(model => model.SexID, "", new { style = "color:Red" })
+                        @Html.ValidationMessageFor(model => model.Age, "", new { style = "color:Red" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { style = "color:Red" })
+                        @Html.ValidationMessage("LoginError", new { style = "color:red;" })
+                    </small>
+                </h2>
+            </div>
+            <div class="login-content ">
+                <div class="modal-body">
+                    @using (Html.BeginForm("DoRegister", "Account", FormMethod.Post, new { id = "registerform" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "用户名", maxlength = "20", onfocus = "$('#usernameInfo').show()", onblur = "$('#usernameInfo').hide()" } })
+                                </div>
+                            </div>
+                            <div class="well" id="usernameInfo" style="display: none;">
+                                提示:用户名长度为6-20位英文或数字！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "密码", maxlength = "20", onfocus = "$('#passwordInfo').show()", onblur = "$('#passwordInfo').hide()" } })
+                                </div>
+                            </div>
+                            <div class="well" id="passwordInfo" style="display: none;">
+                                提示:密码长度为6-20位英文或数字！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    @Html.EditorFor(model => model.UserRePassword, new { htmlAttributes = new { @class = "form-control", placeholder = "重复密码", maxlength = "20", onfocus = "$('#repasswordInfo').show()", onblur = "$('#repasswordInfo').hide()" } })
+                                </div>
+                            </div>
+                            <div class="well" id="repasswordInfo" style="display: none;">
+                                提示:要与上面输入的密码一致！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-tower"></span></span>
+                                    @Html.EditorFor(model => model.NickName, new { htmlAttributes = new { @class = "form-control", placeholder = "昵称", maxlength = "20", onfocus = "$('#wxnameInfo').show()", onblur = "$('#wxnameInfo').hide()" } })
+                                </div>
+                            </div>
+                            <div class="well" id="wxnameInfo" style="display: none;">
+                                提示:请输入昵称！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-new-window"></span></span>
+                                    @Html.DropDownList("SexID", (IEnumerable<SelectListItem>)ViewBag.SexID, htmlAttributes: new { @class = "form-control", onfocus = "$('#sexInfo').show()", onblur = "$('#sexInfo').hide()" })
+                                </div>
+                            </div>
+                            <div class="well" id="sexInfo" style="display: none;">
+                                提示:请选择您的性别！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
+                                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", placeholder = "年龄", maxlength = "100", onfocus = "$('#ageInfo').show()", onblur = "$('#ageInfo').hide()" } })
+                                </div>
+                            </div>
+                            <div class="well" id="ageInfo" style="display: none;">
+                                提示:请输入您的年龄！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-send"></span></span>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "邮箱", maxlength = "100", onfocus = "$('#emailInfo').show()", onblur = "$('#emailInfo').hide()" } })
+                                </div>
+                            </div>
+                            <div class="well" id="emailInfo" style="display: none;">
+                                提示:abc@xx.com,这是找回密码的重要凭证！
+                            </div>
+                        </div>
+                        <div class="form-group form-actions">
+                            <div class="col-xs-12 col-xs-offset-4 ">
+                                <button type="submit" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-off"></span> 注册</button>
+                                <small>已有账号?</small> <a href="/Account/Login"><small>直接登录</small></a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    //window.onload = function () {
+    //        $("#registerModal").css({ 'margin-top': function () { return '300'; } }).modal();
+    //}
+</script>

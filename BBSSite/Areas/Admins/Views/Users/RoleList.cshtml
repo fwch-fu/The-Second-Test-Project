@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "客户用户列表";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section link{
+    <link rel="stylesheet" href="@Urls.ContentCssUrl/admins/Public.css" />
+    <link rel="stylesheet" href="@Urls.ContentBootstrapUrl/bootstrap-table.css" />
+}
+<div class="col-md-9" role="main">
+    <div>
+        <div class="page-header">
+            <h1 id="basic-table">管理用户</h1>
+        </div>
+        <div class="bs-example">
+            <table id="TabList"></table>
+        </div>
+    </div>
+</div>
+@section endsrc{
+    <script type="text/javascript" src="@Urls.ScriptUrl/bootstrap-table.js"></script>
+    <script type="text/javascript" src="@Urls.ScriptUrl/bootstrap-table-zh-CN.js"></script>
+    <script type="text/javascript" src="@Urls.ContentJSUrl/RoleList.js"></script>
+}
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="SettingBanzhu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" RoleID="0">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">设置版主</h4>
+            </div>
+            <div class="modal-body">
+                <div class="item-list" style="height:500px;overflow-y:auto" id="item-list">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

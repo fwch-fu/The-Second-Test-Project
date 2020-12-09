@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BBSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ForumArea">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AreaName" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ForumClassify" Relationship="Self.FK_ForumClassify_ForumArea" FromRole="ForumArea" ToRole="ForumClassify" />
+    <NavigationProperty Name="ForumMain" Relationship="Self.FK_ForumMain_ForumArea" FromRole="ForumArea" ToRole="ForumMain" />
+  </EntityType>
+  <EntityType Name="ForumClassify">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ForumAreaID" Type="Int32" Nullable="false" />
+    <Property Name="ForumUserID" Type="Int32" Nullable="false" />
+    <Property Name="ClassifyName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ClassifyLogo" Type="String" MaxLength="526" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ClassifyInnerLogo" Type="String" MaxLength="526" FixedLength="false" Unicode="false" />
+    <Property Name="ClassifyOrder" Type="Int32" Nullable="false" />
+    <Property Name="ClassifyIsleaf" Type="Boolean" />
+    <NavigationProperty Name="ForumArea" Relationship="Self.FK_ForumClassify_ForumArea" FromRole="ForumClassify" ToRole="ForumArea" />
+    <NavigationProperty Name="UsersBySystem" Relationship="Self.FK_ForumClassify_UsersBySystem" FromRole="ForumClassify" ToRole="UsersBySystem" />
+    <NavigationProperty Name="ForumMain" Relationship="Self.FK_ForumMain_ForumClassify" FromRole="ForumClassify" ToRole="ForumMain" />
+  </EntityType>
+  <EntityType Name="ForumInfoStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ForumMainID" Type="Int32" Nullable="false" />
+    <Property Name="ReplyNumber" Type="Int32" Nullable="false" />
+    <Property Name="SeeNumber" Type="Int32" Nullable="false" />
+    <Property Name="LastReplyUserID" Type="Int32" />
+    <Property Name="LastReplytime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ForumMain" Relationship="Self.FK_ForumInfoStatus_ForumMain" FromRole="ForumInfoStatus" ToRole="ForumMain" />
+    <NavigationProperty Name="UsersByCustomer" Relationship="Self.FK_ForumInfoStatus_UsersByCustomer" FromRole="ForumInfoStatus" ToRole="UsersByCustomer" />
+  </EntityType>
+  <EntityType Name="ForumMain">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ForumAreaID" Type="Int32" Nullable="false" />
+    <Property Name="ForumClassifyID" Type="Int32" Nullable="false" />
+    <Property Name="CreateUserID" Type="Int32" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsRecommend" Type="Boolean" Nullable="false" />
+    <Property Name="Isdelete" Type="Boolean" Nullable="false" />
+    <Property Name="Zan" Type="Int32" />
+    <NavigationProperty Name="ForumArea" Relationship="Self.FK_ForumMain_ForumArea" FromRole="ForumMain" ToRole="ForumArea" />
+    <NavigationProperty Name="ForumClassify" Relationship="Self.FK_ForumMain_ForumClassify" FromRole="ForumMain" ToRole="ForumClassify" />
+    <NavigationProperty Name="ForumInfoStatus" Relationship="Self.FK_ForumInfoStatus_ForumMain" FromRole="ForumMain" ToRole="ForumInfoStatus" />
+    <NavigationProperty Name="UsersByCustomer" Relationship="Self.FK_ForumMain_UsersByCustomer" FromRole="ForumMain" ToRole="UsersByCustomer" />
+    <NavigationProperty Name="ForumSecond" Relationship="Self.FK_ForumSecond_ForumMain" FromRole="ForumMain" ToRole="ForumSecond" />
+  </EntityType>
+  <EntityType Name="ForumSecond">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ForumMainID" Type="Int32" Nullable="false" />
+    <Property Name="CurSequence" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreateUserID" Type="Int32" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ReplySequence" Type="Int32" Nullable="false" />
+    <Property Name="IsDelete" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="ReplyID" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ForumMain" Relationship="Self.FK_ForumSecond_ForumMain" FromRole="ForumSecond" ToRole="ForumMain" />
+    <NavigationProperty Name="UsersByCustomer" Relationship="Self.FK_ForumSecond_UsersByCustomer" FromRole="ForumSecond" ToRole="UsersByCustomer" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserByPermission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PermissionName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="UserByRole" Relationship="Self.UserByRoleJoinPermission" FromRole="UserByPermission" ToRole="UserByRole" />
+  </EntityType>
+  <EntityType Name="UserByRole">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="UsersBySystem" Relationship="Self.FK_UsersBySystem_UserByRole" FromRole="UserByRole" ToRole="UsersBySystem" />
+    <NavigationProperty Name="UserByPermission" Relationship="Self.UserByRoleJoinPermission" FromRole="UserByRole" ToRole="UserByPermission" />
+  </EntityType>
+  <EntityType Name="UsersByCustomer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NickName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SexID" Type="Int32" Nullable="false" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <Property Name="PhotoUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Shenfenzheng" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fatieshu" Type="Int32" />
+    <Property Name="Huitieshu" Type="Int32" />
+    <NavigationProperty Name="ForumInfoStatus" Relationship="Self.FK_ForumInfoStatus_UsersByCustomer" FromRole="UsersByCustomer" ToRole="ForumInfoStatus" />
+    <NavigationProperty Name="ForumMain" Relationship="Self.FK_ForumMain_UsersByCustomer" FromRole="UsersByCustomer" ToRole="ForumMain" />
+    <NavigationProperty Name="ForumSecond" Relationship="Self.FK_ForumSecond_UsersByCustomer" FromRole="UsersByCustomer" ToRole="ForumSecond" />
+    <NavigationProperty Name="ZY_Sex" Relationship="Self.FK_UsersByCustomer_ZY_Sex" FromRole="UsersByCustomer" ToRole="ZY_Sex" />
+  </EntityType>
+  <EntityType Name="UsersBySystem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="NickName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ForumClassify" Relationship="Self.FK_ForumClassify_UsersBySystem" FromRole="UsersBySystem" ToRole="ForumClassify" />
+    <NavigationProperty Name="UserByRole" Relationship="Self.FK_UsersBySystem_UserByRole" FromRole="UsersBySystem" ToRole="UserByRole" />
+  </EntityType>
+  <EntityType Name="ZY_Sex">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="UsersByCustomer" Relationship="Self.FK_UsersByCustomer_ZY_Sex" FromRole="ZY_Sex" ToRole="UsersByCustomer" />
+  </EntityType>
+  <Association Name="FK_ForumClassify_ForumArea">
+    <End Role="ForumArea" Type="Self.ForumArea" Multiplicity="1" />
+    <End Role="ForumClassify" Type="Self.ForumClassify" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForumArea">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumClassify">
+        <PropertyRef Name="ForumAreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumMain_ForumArea">
+    <End Role="ForumArea" Type="Self.ForumArea" Multiplicity="1" />
+    <End Role="ForumMain" Type="Self.ForumMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForumArea">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumMain">
+        <PropertyRef Name="ForumAreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumClassify_UsersBySystem">
+    <End Role="UsersBySystem" Type="Self.UsersBySystem" Multiplicity="1" />
+    <End Role="ForumClassify" Type="Self.ForumClassify" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersBySystem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumClassify">
+        <PropertyRef Name="ForumUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumMain_ForumClassify">
+    <End Role="ForumClassify" Type="Self.ForumClassify" Multiplicity="1" />
+    <End Role="ForumMain" Type="Self.ForumMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForumClassify">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumMain">
+        <PropertyRef Name="ForumClassifyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumInfoStatus_ForumMain">
+    <End Role="ForumMain" Type="Self.ForumMain" Multiplicity="1" />
+    <End Role="ForumInfoStatus" Type="Self.ForumInfoStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForumMain">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumInfoStatus">
+        <PropertyRef Name="ForumMainID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumInfoStatus_UsersByCustomer">
+    <End Role="UsersByCustomer" Type="Self.UsersByCustomer" Multiplicity="0..1" />
+    <End Role="ForumInfoStatus" Type="Self.ForumInfoStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumInfoStatus">
+        <PropertyRef Name="LastReplyUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumMain_UsersByCustomer">
+    <End Role="UsersByCustomer" Type="Self.UsersByCustomer" Multiplicity="1" />
+    <End Role="ForumMain" Type="Self.ForumMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumMain">
+        <PropertyRef Name="CreateUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumSecond_ForumMain">
+    <End Role="ForumMain" Type="Self.ForumMain" Multiplicity="1" />
+    <End Role="ForumSecond" Type="Self.ForumSecond" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForumMain">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumSecond">
+        <PropertyRef Name="ForumMainID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumSecond_UsersByCustomer">
+    <End Role="UsersByCustomer" Type="Self.UsersByCustomer" Multiplicity="1" />
+    <End Role="ForumSecond" Type="Self.ForumSecond" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumSecond">
+        <PropertyRef Name="CreateUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersBySystem_UserByRole">
+    <End Role="UserByRole" Type="Self.UserByRole" Multiplicity="1" />
+    <End Role="UsersBySystem" Type="Self.UsersBySystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserByRole">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UsersBySystem">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersByCustomer_ZY_Sex">
+    <End Role="ZY_Sex" Type="Self.ZY_Sex" Multiplicity="1" />
+    <End Role="UsersByCustomer" Type="Self.UsersByCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZY_Sex">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UsersByCustomer">
+        <PropertyRef Name="SexID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserByRoleJoinPermission">
+    <End Role="UserByPermission" Type="Self.UserByPermission" Multiplicity="*" />
+    <End Role="UserByRole" Type="Self.UserByRole" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="BBSDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ForumArea" EntityType="Self.ForumArea" />
+    <EntitySet Name="ForumClassify" EntityType="Self.ForumClassify" />
+    <EntitySet Name="ForumInfoStatus" EntityType="Self.ForumInfoStatus" />
+    <EntitySet Name="ForumMain" EntityType="Self.ForumMain" />
+    <EntitySet Name="ForumSecond" EntityType="Self.ForumSecond" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="UserByPermission" EntityType="Self.UserByPermission" />
+    <EntitySet Name="UserByRole" EntityType="Self.UserByRole" />
+    <EntitySet Name="UsersByCustomer" EntityType="Self.UsersByCustomer" />
+    <EntitySet Name="UsersBySystem" EntityType="Self.UsersBySystem" />
+    <EntitySet Name="ZY_Sex" EntityType="Self.ZY_Sex" />
+    <AssociationSet Name="FK_ForumClassify_ForumArea" Association="Self.FK_ForumClassify_ForumArea">
+      <End Role="ForumArea" EntitySet="ForumArea" />
+      <End Role="ForumClassify" EntitySet="ForumClassify" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumMain_ForumArea" Association="Self.FK_ForumMain_ForumArea">
+      <End Role="ForumArea" EntitySet="ForumArea" />
+      <End Role="ForumMain" EntitySet="ForumMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumClassify_UsersBySystem" Association="Self.FK_ForumClassify_UsersBySystem">
+      <End Role="UsersBySystem" EntitySet="UsersBySystem" />
+      <End Role="ForumClassify" EntitySet="ForumClassify" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumMain_ForumClassify" Association="Self.FK_ForumMain_ForumClassify">
+      <End Role="ForumClassify" EntitySet="ForumClassify" />
+      <End Role="ForumMain" EntitySet="ForumMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumInfoStatus_ForumMain" Association="Self.FK_ForumInfoStatus_ForumMain">
+      <End Role="ForumMain" EntitySet="ForumMain" />
+      <End Role="ForumInfoStatus" EntitySet="ForumInfoStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumInfoStatus_UsersByCustomer" Association="Self.FK_ForumInfoStatus_UsersByCustomer">
+      <End Role="UsersByCustomer" EntitySet="UsersByCustomer" />
+      <End Role="ForumInfoStatus" EntitySet="ForumInfoStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumMain_UsersByCustomer" Association="Self.FK_ForumMain_UsersByCustomer">
+      <End Role="UsersByCustomer" EntitySet="UsersByCustomer" />
+      <End Role="ForumMain" EntitySet="ForumMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumSecond_ForumMain" Association="Self.FK_ForumSecond_ForumMain">
+      <End Role="ForumMain" EntitySet="ForumMain" />
+      <End Role="ForumSecond" EntitySet="ForumSecond" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumSecond_UsersByCustomer" Association="Self.FK_ForumSecond_UsersByCustomer">
+      <End Role="UsersByCustomer" EntitySet="UsersByCustomer" />
+      <End Role="ForumSecond" EntitySet="ForumSecond" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersBySystem_UserByRole" Association="Self.FK_UsersBySystem_UserByRole">
+      <End Role="UserByRole" EntitySet="UserByRole" />
+      <End Role="UsersBySystem" EntitySet="UsersBySystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersByCustomer_ZY_Sex" Association="Self.FK_UsersByCustomer_ZY_Sex">
+      <End Role="ZY_Sex" EntitySet="ZY_Sex" />
+      <End Role="UsersByCustomer" EntitySet="UsersByCustomer" />
+    </AssociationSet>
+    <AssociationSet Name="UserByRoleJoinPermission" Association="Self.UserByRoleJoinPermission">
+      <End Role="UserByPermission" EntitySet="UserByPermission" />
+      <End Role="UserByRole" EntitySet="UserByRole" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

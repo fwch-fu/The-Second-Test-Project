@@ -1,0 +1,317 @@
+﻿@using V = BBSSite.ViewModels
+@model V.ForumMainJoinForumSecondEntity
+@{
+    BBSSite.MyPublic.PublicService P = new BBSSite.MyPublic.PublicService();
+    ViewBag.Title = "详细";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section linkcss{
+    <link href="@Urls.ContentCssUrl/autocomplete.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/forum.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/mod-dz-1.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_common.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_forum_index.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_widthauto.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/bdsstyle.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/WebPaging.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/SecondContent.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/core.css" rel="stylesheet" />
+    <style type="text/css">
+        .page {
+            display: inline-block;
+            border: 1px solid;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: #1faeff;
+            text-align: center;
+        }
+        a, a:hover {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .tbl {
+            background: #e5edf2 none repeat scroll 0 0;
+            border-right: 1px solid #c2d5e3;
+            overflow: hidden;
+            width: 160px;
+        }
+
+        .tbr {
+            hyphens: auto;
+            word-break: break-all;
+        }
+
+        .list-paddingleft-2 {
+            padding-left: 36px;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-7">
+            <span style="padding-left:10px;">
+                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>发帖</button>
+                <a class="btn btn-primary" href="#ueditor_"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>回复</a>
+            </span>
+        </div>
+        <div class="col-xs-5 text-nowrap"></div>
+    </div>
+
+    <table class="table table-bordered">
+        <tr>
+            <td class="tbl">
+                <div style="text-align: center;">
+                    <p>楼主</p><a><img alt="" src="@Urls.ContentImagesUrl/ico_000.gif"/></a>
+                </div>
+                <table class="table" style="background-color:#e5edf2;">
+                    <tr><td>昵称:</td><td>@Model.UsersByCustomer.NickName</td></tr>
+                    <tr><td>性别:</td><td>@Model.ZY_Sex.Content</td></tr>
+                    <tr><td>年龄:</td><td>@Model.UsersByCustomer.Age</td></tr>
+                    <tr><td>发帖数:</td><td>@Model.UsersByCustomer.Fatieshu</td></tr>
+                    <tr><td>回帖数:</td><td>@Model.UsersByCustomer.Huitieshu</td></tr>
+                </table>
+            </td>
+            <td class="tbr">
+                <div style="height: 65px;padding-left: 20px;padding-top: 1px;">
+                    <h3><small><a style="color: #ifaeff">[@Model.ForumClassify.ClassifyName]&nbsp;</a></small><a style="color: #ifaeff">@Model.ForumMain.Title</a></h3>
+                </div>
+                <div style="width:98%;height:1px;margin-bottom:10px;padding:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+                <p class="text-right" style="padding-right: 90px;">
+                    <span style="padding-right: 30px;">
+                        <a style="color: #78BA00;">发表于:@Model.ForumMain.CreateTime</a>|
+                        <a style="color: #78BA00;">只看作者</a>|
+                        <a style="color: #78BA00;">倒序查看</a>|
+                        <a style="color: #78BA00;">共 @Model.ForumSecond.Count() 层</a>
+                    </span>
+                    <span><input type="text" style="width: 32px;" id="floortext"><a href="javascript:void(0)" style="color: #78BA00;" onclick="Onfloortext()"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>快速跳楼</a></span>
+                </p>
+                <div style="width:98%;height:1px;margin-bottom:10px;padding:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+                <div style="padding-top: 12px;min-height: 380px;">@Html.Raw(Model.ForumMain.Content)</div>
+                <div style="width:98%;height:1px;margin-bottom:10px;padding:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+                <div style="padding-right: 90px;">
+                    <p class="text-right" style="color: yellow;"><a href="javascript:void(0)" id="WarningInfoMainBtn" IsClick="false"  onclick="SetForumID('WarningInfoMainBtn',@Model.ForumMain.ID,1)" style="color: #f4b300;"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>举报</a></p>
+                </div>
+            </td>
+        </tr>
+        @foreach (var ms in Model.ForumSecond)
+        {
+            <tr>
+                <td class="tbl" id="tbl_@ms.ForumSecond.CurSequence">
+                    <div style="text-align: center;">
+                        <p>第@{@ms.ForumSecond.CurSequence}楼</p>
+                        <a><img alt="" src="@Urls.ContentImagesUrl/ico_000.gif"/></a>
+                    </div>
+                    <table class="table" style="background-color:#e5edf2; ">
+                        <tr><td>昵称:</td><td>@ms.UsersByCustomer.NickName</td></tr>
+                        <tr><td>性别:</td><td>@ms.ZY_Sex.Content</td></tr>
+                        <tr><td>年龄:</td><td>@ms.UsersByCustomer.Age</td></tr>
+                        <tr><td>发帖数:</td><td>@ms.UsersByCustomer.Fatieshu</td></tr>
+                        <tr><td>回帖数:</td><td>@ms.UsersByCustomer.Huitieshu</td></tr>
+                    </table>
+                </td>
+                <td class="tbr">
+                    <span style="padding-right: 30px;">
+                        <a style="color: #78BA00;">回复于:@ms.ForumSecond.CreateTime</a>
+                    </span>
+                    <div style="width:98%;height:1px;margin-bottom:10px;padding:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+                    <div style="padding-top:12px;min-height:380px;">
+                        <div>@Html.Raw(ms.ForumSecond.Content)</div>
+                        @{
+                            bool IsData = false;//定义是否包含楼层回复内容
+                            List<V.ChildReplyEntity> ChildReplyArray = P.GetChildReply(ms.ForumSecond.ID, out IsData);//查询该楼层的回复内容
+                        }
+                        @if (IsData)//如果该楼层存在回复内容
+                        {
+                            <div class="ChildReply">
+                                <ul>
+                                    @foreach (var CRS in ChildReplyArray)
+                                    {
+                                        string ByNickName = "";
+                                        if (CRS.ByUsersByCustomer != null)
+                                        {
+                                            ByNickName = "<span class=\"ReplyConstChar\">回复</span>&nbsp;" + CRS.ByUsersByCustomer.NickName;
+                                        }
+                                        <li>
+                                            <div class="ChildReplyContent">
+                                                <img class="ChildReplyImg" src="@Urls.ContentImagesUrl/UserHead/@CRS.UsersByCustomer.PhotoUrl" />
+                                                <span class="ChildReplyNickName">@CRS.UsersByCustomer.NickName&nbsp;@Html.Raw(ByNickName)</span>
+                                                : &nbsp;<span>@CRS.ForumSecond.Content</span>
+                                            </div>
+                                            <div class="ChildReplyTime">
+                                                <span>@CRS.ForumSecond.CreateTime</span>
+                                                <a href="javascript:void(0)" onclick="ReplyMining(@CRS.ForumSecond.ID,@ms.ForumSecond.ID)" style="color: #f4b300;"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>回复</a>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                                <div class="ReplyMining" id="ReplyMining_@ms.ForumSecond.ID"></div>
+                            </div>
+                        }
+                    </div>
+                    <div style="width:98%;height:1px;margin-bottom:10px;padding:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+                    <div style="padding-right: 90px;">
+                        <p class="text-right" style="color: yellow;">
+                            <a href="javascript:void(0)" onclick="Replying(@ms.ForumSecond.ID)" style="color: #f4b300;"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>回复此楼</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="javascript:void(0)" id="WarningInfoBtn_@ms.ForumSecond.ID" IsClick="false" onclick="SetForumID('WarningInfoBtn_@ms.ForumSecond.ID',@ms.ForumSecond.ID,2)" style="color:#f4b300;"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>举报</a>
+                            <br />
+                            <div class="ReplyTextAreaBox" id="ReplayTextAreaBox_@ms.ForumSecond.ID"></div>
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="row">
+        <div class="col-xs-7">
+            <span style="padding-left: 10px;"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>发帖</button></span>
+        </div>
+        <div class="col-xs-5 text-nowrap">
+            @Html.Raw(ViewBag.Paging)
+        </div>
+    </div>
+    <div style="width:98%;height:3px;margin-bottom:10px;padding:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+    <!-- 富文本 -->
+    <a name="ueditor_" id="ueditor_"></a>
+    @using (Html.BeginForm("ReplyContent", "HomeSave", FormMethod.Post))
+    {
+        <input type="hidden" id="curid" name="curid" value="@ViewBag.curid" />
+        <p class="text-right" style="padding-right: 90px;">
+            <button type="submit" class="btn btn-primary btn-xs text-right" onclick="return subForm();"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>回复帖子</button>
+            <label style="color:red">@TempData["ReplyContentError"]</label>
+        </p>
+    <!-- 加载编辑器的容器 -->
+        <script id="container" name="content" type="text/plain">
+        </script>
+    }
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="@Urls.ContentUedit/js/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="@Urls.ContentUedit/js/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var AbsolutePath="@Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(Request.Url.AbsolutePath))";
+        @{BBSSite.MyPublic.ILoginStatus IStatus = new BBSSite.MyPublic.LoginStatus(); }
+        var success = @IStatus.IsLogin.ToString().ToLower();
+        var editor = UE.getEditor('container');
+        editor.addListener('ready', function () {
+            if (success) {
+                console.log("OK");
+                return;
+            } else {
+                editor.setDisabled('fullscreen');
+                editor.setContent('<br/><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/Account/Login/'+AbsolutePath+'" target="_parent">请登录</a>');
+            }
+        });
+        function subForm() {
+            if (!success) {
+                if(confirm("回帖前请先登录,点击确定将跳转登录页面")){
+                    window.location.href = "/Account/Login/"+AbsolutePath;
+                }
+                return false;
+            }
+            var content = editor.getContent();
+            if(content === ''){
+                alert("请输入内容");
+                return false;
+            }
+            else {
+                $("#ueditor_textarea_content").val($.base64.btoa(content, true));
+                return true;
+            }
+        }
+    </script>
+    <!-- end富文本 -->
+</div>
+@section LastTag
+{
+    <script type="text/javascript" src="@Urls.ScriptUrl/jquery.base64.js"></script>
+    <script type="text/javascript" src="@Urls.ScriptUrl/popup_layer.js"></script>
+    <script type="text/javascript" src="@Urls.ContentJSUrl/SecondContent.js"></script>
+    <script type="text/javascript" src="@Urls.ScriptUrl/jquery.form.js"></script>
+}
+<script type="text/javascript" src="@Urls.ContentJSUrl/WebPaging.js"></script>
+<script type="text/javascript">
+    var actionUrl = '@Url.Content("~/Home/SecondContent")';
+</script>
+
+
+<div id="blk9" class="blk" style="display:none;">
+    <div class="head"><div class="head-right"></div></div>
+    <div class=main>
+        <h2>贴吧举报</h2>
+        <a href=javascript:void(0) id="close9" class="closeBtn">关闭</a>
+        <div class="WarningInfo">
+            <form id="SubWarningInfo">
+                <div class="WarningInfoType">请选择举报类型:</div>
+                <div class="WarningInfoContent">
+                    @{
+                        V.ReportTypeEntity RTES = P.GetReportType();
+                    }
+                    <div class="WarningInfoRange">
+                        <div class="WarningInfoRangeTitle">个人/企业举报</div>
+                        <div class="WarningInfoRangeContent">
+                            @{int pIndex = 1; }
+                            @foreach (BBSSite.Models.tb_ZY_ReportType RTE in RTES.PersonalReportType)
+                            {
+                                if (pIndex == 1)
+                                {
+                                    @:<p>
+                                }
+                                <label><input type="radio" name="RdoWarningType" value="@RTE.ID" /> @RTE.Content</label>
+                                if (pIndex == 2)
+                                {
+                                    @:</p>
+                                    pIndex = 0;
+                                }
+                                pIndex++;
+                            }
+                            @if (pIndex == 2)
+                            {
+                                @:</p>
+                            }
+                            <div class="WarningInfoTextBox">
+                                <h5>请简单描述内容:</h5>
+                                <textarea class="WarningInfoText" name="WarningInfoText"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="WarningInfoReason">
+                        <div class="WarningInfoReasonTitle">垃圾举报</div>
+                        <div class="WarningInfoReasonContent">
+                            @{int gIndex = 1; }
+                            @foreach (BBSSite.Models.tb_ZY_ReportType RTE in RTES.GarbageReportType)
+                            {
+                                if (gIndex == 1)
+                                {
+                                    @:<p>
+                                }
+                                <label><input type="radio" name="RdoWarningType" value="@RTE.ID" /> @RTE.Content</label>
+                                if (gIndex == 2)
+                                {
+                                    @:</p>
+                                    gIndex = 0;
+                                }
+                                gIndex++;
+                            }
+                            @if (gIndex == 2)
+                            {
+                                @:</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="WarningOperaBtnBox">
+                    <input type="hidden" id="ForumID" name="ForumID"/>
+                    <input type="hidden" id="ForumTypeID" name="ForumTypeID" />
+                    <input type="button" class="WarningOperaBtn" value="完成" onclick="OnSubWarningInfo()"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="foot">
+        <div class="foot-right"></div>
+    </div>
+</div>

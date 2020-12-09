@@ -1,0 +1,249 @@
+﻿@model BBSSite.ViewModels.ForumClassifyJoinForumMainEntity
+@{
+    ViewBag.Title = "论坛列表";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section linkcss{
+    <style type="text/css">
+        .page {
+            display: inline-block;
+            border: 1px solid;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: #1faeff;
+            text-align: center;
+        }
+
+        a, a:hover {
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+    <link href="@Urls.ContentCssUrl/autocomplete.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/forum.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/mod-dz-1.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_common.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_forum_index.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_widthauto.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/WebPaging.css" rel="stylesheet">
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-2 text-right">
+            <img alt="" src="@Urls.ContentSecondImageUrl/@Model.ClassifyInnerLogo">
+        </div>
+        <div class="col-xs-10 text-left">
+            <h3>@Model.ClassifyName</h3>
+            <footer>
+                版主：<cite title="Source Title">@Model.UsersByBanzhu.NickName |</cite>
+            </footer>
+        </div>
+    </div>
+    <!-- 横线 -->
+    <div style="width:98%;height:3px;margin-bottom:10px;padding:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+    <div class="row">
+        <div class="col-xs-9">
+            <span style="padding-left: 10px;"><a href="#newT" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>新帖</a></span>
+        </div>
+        <div class="col-xs-3 text-nowrap">
+            <span class="text-muted">
+                共 @Model.TotalForumCount 帖子&nbsp;&nbsp;|&nbsp;&nbsp;
+                共 @Model.TotalReplyCount 条回复&nbsp;&nbsp;|&nbsp;&nbsp;
+                共 @Model.TotalSeeCount 次查看&nbsp;&nbsp;|&nbsp;&nbsp;
+            </span>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th width="35%"><strong>标题：</strong></th>
+            <th width="10%"><strong>作者</strong></th>
+            <th width="10%"><strong>回复/查看</strong></th>
+            <th width="10%"><strong>最后发表</strong></th>
+            @{
+                if (ViewBag.IsLimit)
+                {
+                    @:<th width="35%"><strong>操作</strong></th>
+                }
+            }
+        </tr>
+        @{int rowIndex = 0; }
+        @foreach (var FM in Model.ForumMain)
+        {
+            <tr>
+                <td><a href="/Home/SecondContent/@FM.ID"><img src="@Urls.ContentImagesUrl/@Model.ImgUrl[rowIndex]" />[@Model.FMType[rowIndex]]&nbsp;&nbsp; @FM.Title</a></td>
+                <td>@Model.UsersByCustomer[rowIndex].UserName</td>
+                <td>@Model.ReplyNumber[rowIndex]/@Model.SeeNumber[rowIndex]</td>
+                <td>@Model.LastReplyUser[rowIndex]</td>
+                @{
+                    if (ViewBag.IsLimit)
+                    {
+                        @:<td class="OperaSetting">
+                          <input type="button" value="@(FM.IsRecommend?"取消精华":"设置精华")" style="@(FM.IsRecommend?"":"border-color:#399c32;background-color:#46a13f;")" IsRecommend="@FM.IsRecommend.ToString().ToLower()" onclick="SettingRecommend(this,@FM.ID)" />
+                           if (FM.IsExamine == 0)
+                           {
+                              @:<input type="button" value="审核通过" onclick="Examine(this,@FM.ID)"/>
+                           }
+                            @:<input type="button" value="删除" onclick="Delrecord(this,@FM.ID)"/>
+                        @:</td>
+                    }
+                }
+            </tr>
+            rowIndex++;
+        }
+    </table>
+
+    <div class="row">
+        <div class="col-xs-7"></div>
+        <div class="col-xs-5 text-nowrap">
+            @Html.Raw(ViewBag.Paging)
+        </div>
+    </div>
+
+    <div style="width:98%;height:3px;margin-bottom:10px;padding:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+    <!-- 富文本 -->
+    @using (Html.BeginForm("PulishNewContent", "HomeSave", FormMethod.Post))
+    {
+        <input type="hidden" id="curid" name="ForumClassifyID" value="@ViewBag.curid" />
+        <label for="biaoti">设置为精华帖：</label>
+        <input type="checkbox" name="IsRecommend" value="1" />
+        <label for="biaoti">帖子标题：</label>
+        <input type="text" name="mainTitle" id="mainTitle" placeholder="最大长度80个汉字" style="width: 360px;">
+        <input type="submit" class="btn btn-primary btn-xs text-right" value="发表帖子" onclick="return subForm();" />
+        <label style="color:red">@TempData["PulishNewContentError"]</label>
+        <!-- 加载编辑器的容器 -->
+        <div style="padding: 0px;margin: 0px;width: 100%;height: 100%;">
+            <script id="container" name="content" type="text/plain">
+            </script>
+        </div>
+    }
+
+    <a name="newT" id="newT"></a>
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="@Urls.ContentUedit/js/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="@Urls.ContentUedit/js/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var AbsolutePath="@Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(Request.Url.AbsolutePath))";
+        @{BBSSite.MyPublic.ILoginStatus IStatus = new BBSSite.MyPublic.LoginStatus(); }
+        var success = @IStatus.IsLogin.ToString().ToLower();
+        var editor = UE.getEditor('container');
+        editor.addListener('ready', function () {
+            if (success) {
+                console.log("OK");
+                return;
+            } else {
+                editor.setDisabled('fullscreen');
+                editor.setContent('<br/><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+                    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+                    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+                    '<a href="/Account/Login/'+AbsolutePath+'" target="_parent">请登录</a>');
+            }
+        });
+        function subForm() {
+            if (!success && confirm('发帖前请先登录,确定跳转登录页面')) {
+                window.location.href = "/Account/Login/"+AbsolutePath;
+                return false;
+            }
+            var content = editor.getContent();
+            var mainTitle = $("#mainTitle").val();
+            if (mainTitle === '') {
+                alert("请输入标题");
+                return false;
+            }
+            else if(content === ''){
+                alert("请输入内容");
+                return false;
+            }
+            else {
+                $("#ueditor_textarea_content").val($.base64.btoa(content, true));
+                return true;
+            }
+        }
+    </script>
+    <!-- end富文本 -->
+</div>
+@section LastTag
+{
+    <script type="text/javascript" src="@Urls.ScriptUrl/jquery.base64.js"></script>
+}
+<script type="text/javascript" src="@Urls.ContentJSUrl/WebPaging.js"></script>
+<script type="text/javascript">
+    var actionUrl = '@Url.Content("~/Home/MainContent")';
+    @if (ViewBag.IsLimit)
+    {
+        <text>
+    function SettingRecommend(obj, FMID){
+                var IsRecommend=$(obj).attr("IsRecommend");
+                $.ajax({
+                    url: "/Home/SettingRecommend",
+                    type: "post",
+                    dataType: "json",
+                    async: true,
+                    data: { "FMID":FMID,"IsRecommend":IsRecommend},
+                    complete: function() {
+
+                    },
+                    success: function(data, testStatus) {
+                        if (data.ResultStatus != "1")
+                        {
+                            alert(data.ResultMsg);
+                        }
+                        else
+                        {
+                            var hrefStr= window.location.href.toString();
+                            window.location.href=hrefStr;
+                        }
+                    }
+                });
+    }
+    function Examine(obj, FMID){
+        $.ajax({
+            url: "/Home/SettingExamine",
+            type: "post",
+            dataType: "json",
+            async: true,
+            data: { "FMID":FMID},
+            complete: function() {
+
+            },
+            success: function(data, testStatus) {
+                if (data.ResultStatus != "1")
+                {
+                    alert(data.ResultMsg);
+                }
+                else
+                {
+                    var hrefStr= window.location.href.toString();
+                    window.location.href=hrefStr;
+                }
+            }
+        });
+    }
+    function Delrecord(obj, FMID){
+        $.ajax({
+            url: "/Home/Delrecord",
+            type: "post",
+            dataType: "json",
+            async: true,
+            data: { "FMID":FMID},
+            complete: function() {
+
+            },
+            success: function(data, testStatus) {
+                if (data.ResultStatus != "1")
+                {
+                    alert(data.ResultMsg);
+                }
+                else
+                {
+                    var hrefStr= window.location.href.toString();
+                    window.location.href=hrefStr;
+                }
+            }
+        });
+    }
+        </text>
+    }
+</script>

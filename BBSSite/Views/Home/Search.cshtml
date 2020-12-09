@@ -1,0 +1,19 @@
+﻿@model List<BBSSite.ViewModels.SearchEntity>
+@{
+    ViewBag.Title = "搜索结果";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section linkcss{
+    <link rel="stylesheet" href="@Urls.ContentCssUrl/search.css" />
+}
+<div class="container">
+    @foreach (BBSSite.ViewModels.SearchEntity SE in Model)
+    {
+        <div class="search-list">
+            <div class="search-title">
+                <span class="search-title-content"><a href="/Home/SecondContent/@SE.ID">@Html.Raw(SE.Title)</a></span>
+            </div>
+            <div class="search-content">@Html.Raw(SE.Content)</div>
+        </div>
+    }
+</div>

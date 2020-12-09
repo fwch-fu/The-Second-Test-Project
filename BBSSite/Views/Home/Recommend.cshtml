@@ -1,0 +1,126 @@
+﻿@model BBSSite.ViewModels.ForumMainByRecommendEntity
+@{
+    ViewBag.Title = "精华帖子";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section linkcss{
+    <style type="text/css">
+        .page {
+            display: inline-block;
+            border: 1px solid;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: #1faeff;
+            text-align: center;
+        }
+
+        a, a:hover {
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+    <link href="@Urls.ContentCssUrl/autocomplete.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/forum.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/mod-dz-1.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_common.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_forum_index.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_widthauto.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/WebPaging.css" rel="stylesheet">
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-2 text-right">
+            <img alt="" src="@Urls.ContentImagesUrl/ziye.png">
+        </div>
+        <div class="col-xs-10 text-left">
+            <h3>帖子</h3>
+            <footer>
+                精华：感谢大家对论坛的支持.
+            </footer>
+        </div>
+    </div>
+    <!-- 横线 -->
+    <div style="width:98%;height:3px;margin-bottom:10px;padding:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+    <div class="row"></div>
+    <table class="table table-striped">
+        <tr>
+            <th width="70%"><strong>标题：</strong></th>
+            <th width="10%"><strong>作者</strong></th>
+            <th width="10%"><strong>回复/查看</strong></th>
+            <th width="10%"><strong>最后发表</strong></th>
+        </tr>
+        @{int rowIndex = 0; }
+        @foreach (var FM in Model.ForumMain)
+        {
+            <tr>
+                <td>
+                    <a href="/Home/SecondContent/@FM.ID"><img src="@Urls.ContentImagesUrl/pin_1.gif"/>[日月精华]&nbsp;&nbsp; @FM.Title</a>
+                    <script type="text/javascript">
+                        function setjinghua(mainId, flag) {
+                            $.ajax({
+                                url: "http://192.168.1.66:8080/mrbbs_test/jinghua?mainId=" + mainId + "&flag=" + flag,
+                                            type: 'GET',
+                                            success: function (data) {
+                                        if (data.success) {
+                                            window.location.reload();
+                                        }
+                                    }
+                                });
+                        }
+                    </script>
+                </td>
+                <td>@Model.UsersByCustomer[rowIndex].UserName</td>
+                <td>@Model.ReplyNumber[rowIndex]/@Model.SeeNumber[rowIndex]</td>
+                <td>@Model.LastReplyUser[rowIndex]</td>
+            </tr>
+            rowIndex++;
+        }
+    </table>
+
+    <div class="row">
+        <div class="col-xs-7"></div>
+        <div class="col-xs-5 text-nowrap">
+            @Html.Raw(ViewBag.Paging)
+        </div>
+    </div>
+    <div style="width:98%;height:3px;margin-bottom:10px;padding:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="@Urls.ContentUedit/js/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="@Urls.ContentUedit/js/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var editor = UE.getEditor('container');
+        var success = false;
+        editor.addListener('ready', function () {
+            if (success) {
+                console.log("OK");
+                return;
+            } else {
+                editor.setDisabled('fullscreen');
+                editor.setContent('<br/><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/Account/Login" target="_parent" onclick="goLogin()">请登录</a>');
+            }
+        });
+        function goLogin() {
+            if (confirm('发帖前请先登录,确定跳转登录页面')) {
+                window.location.href = "http://192.168.1.66:8080/mrbbs_test/login.jsp";
+            }
+        }
+        function subForm() {
+            var content = editor.getContent();
+            var mainTitle = $("#mainTitle").val();
+            if (content === '' || mainTitle === '') {
+                alert("请输入标题与内容");
+            } else {
+                $("#saveTiezi").submit();
+            }
+        }
+    </script>
+    <!-- end富文本 -->
+</div>
+<script type="text/javascript" src="@Urls.ContentJSUrl/WebPaging.js"></script>
+<script type="text/javascript">
+    var actionUrl = '@Url.Content("~/Home/Recommend")';
+</script>

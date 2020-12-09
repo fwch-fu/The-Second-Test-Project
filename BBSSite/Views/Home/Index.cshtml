@@ -1,0 +1,83 @@
+﻿@model IList<BBSSite.ViewModels.ForumAreaJoinForumClassifyEntity>
+@{
+    ViewBag.Title = "首页";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section linkcss{
+    <link href="@Urls.ContentCssUrl/autocomplete.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/forum.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/mod-dz-1.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_common.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_forum_index.css" rel="stylesheet">
+    <link href="@Urls.ContentCssUrl/style_6_widthauto.css" rel="stylesheet">
+}
+<div class="container-fluid">             <!--div容器-->
+    @if (Model != null && Model.Count > 0)//判断实体数据是否为空
+    {
+        foreach (var Ms in Model)         //遍历数据集合
+        {
+            <div class="bm bmw  flg cl con01" style="background-color: #ffffff;">
+                <div class="bm_h cl" style="position: relative;background-color: #ffffff;">
+                    <span class="o">
+                        <img id="category_8702_img" src="@Urls.ContentImagesUrl/collapsed_no.gif" title="收起/展开" alt="收起/展开" onclick="toggle_collapse('category_8701');">
+                    </span>
+                    <h4>
+                        <i class="jg"></i>
+                        <a href="javascript:void(0)">@Ms.AreaName</a>
+                    </h4>
+                </div>
+                <div id="category_8701" class="bm_c">
+                    <table class="fl_tb">
+                        <tbody class="js-hover">
+                            @if (Ms.ChildForumClassify != null && Ms.ChildForumClassify.Count > 0)
+                            {
+                                int rowIndex = 1;
+                                foreach (var Msc in Ms.ChildForumClassify)
+                                {
+                                    if (rowIndex == 1)
+                                    {
+                                        @:<tr class="fl_row">
+                                    }
+                                    <td class="fl_g" width="32.9%">
+                                        <div class="fl_icn_g" style="width: 120px;">
+                                            <a href="MainContent/@Msc.Classifys.ID">
+                                                <img src="@Urls.ContentImagesUrl/@Msc.Classifys.ClassifyLogo" alt="Java" align="left">
+                                            </a>
+                                        </div>
+                                        <dl style="margin-left: 120px;">
+                                            <dt>
+                                                @Html.ActionLink(Msc.Classifys.ClassifyName, "MainContent", "Home", new { id = Msc.Classifys.ID }, null)
+                                                <em class="game-todayposts" title="今日"> </em>
+                                            </dt>
+                                            <dd class="game-desc">
+                                                @{
+                                                    var RecommendTop3 = Msc.ForumMain.ToList();
+                                                    int Count = RecommendTop3.Count();
+                                                }                                                
+                                                @for (int r = 0; r < 3 && r < Count; r++)
+                                                {
+                                                    var MyFM = RecommendTop3[r];
+                                                    @Html.ActionLink(MyFM.Title, "SecondContent", "Home", new { id = MyFM.ID }, new { target = "_self", @class = "text-nowrap", style = "display:block;line-height:16px" })
+                                                }
+                                            </dd>
+                                        </dl>
+                                    </td>
+                                    if (rowIndex == 3)
+                                    {
+                                        @:</tr>
+                                        rowIndex = 0;
+                                    }
+                                    rowIndex++;
+                                }
+                                if (rowIndex > 1)
+                                {
+                                    @:</tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    }
+</div>	

@@ -1,0 +1,91 @@
+﻿@model BBSSite.Areas.Admins.ViewModels.RegisAdminEntity
+@{
+    ViewBag.Title = "创建用户";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section link{
+    <link rel="stylesheet" href="@Urls.ContentCssUrl/admins/Public.css" />
+}
+@using (Html.BeginForm("DoCreateAdmins", "Users", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container toppx1">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">用&nbsp;&nbsp;户&nbsp;&nbsp;名</span>
+                    @Html.TextBoxFor(TB => TB.UserName, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.UserName)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
+                    @Html.TextBoxFor(TB => TB.NickName, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.NickName)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+                    @Html.PasswordFor(TB => TB.UserPassword, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.UserPassword)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">确认密码</span>
+                    @Html.PasswordFor(TB => TB.OkUserPassword, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.OkUserPassword)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">选择角色</span>
+                    @Html.DropDownList("DropDownListRoleID", (IEnumerable<SelectListItem>)ViewBag.RoleID, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.RoleID)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</span>
+                    @Html.TextBoxFor(TB => TB.Email, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.Email) </span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <input type="submit" name="sublogin" class="OnLogin" value="创建" />
+            </div>
+        </div>
+    </div>
+}

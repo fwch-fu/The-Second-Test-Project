@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BBSDBModelStoreContainer" CdmEntityContainer="BBSDBEntities">
+    <EntitySetMapping Name="ForumArea">
+      <EntityTypeMapping TypeName="BBSDBModel.ForumArea">
+        <MappingFragment StoreEntitySet="ForumArea">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForumClassify">
+      <EntityTypeMapping TypeName="BBSDBModel.ForumClassify">
+        <MappingFragment StoreEntitySet="ForumClassify">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ForumAreaID" ColumnName="ForumAreaID" />
+          <ScalarProperty Name="ForumUserID" ColumnName="ForumUserID" />
+          <ScalarProperty Name="ClassifyName" ColumnName="ClassifyName" />
+          <ScalarProperty Name="ClassifyLogo" ColumnName="ClassifyLogo" />
+          <ScalarProperty Name="ClassifyInnerLogo" ColumnName="ClassifyInnerLogo" />
+          <ScalarProperty Name="ClassifyOrder" ColumnName="ClassifyOrder" />
+          <ScalarProperty Name="ClassifyIsleaf" ColumnName="ClassifyIsleaf" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForumInfoStatus">
+      <EntityTypeMapping TypeName="BBSDBModel.ForumInfoStatus">
+        <MappingFragment StoreEntitySet="ForumInfoStatus">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ForumMainID" ColumnName="ForumMainID" />
+          <ScalarProperty Name="ReplyNumber" ColumnName="ReplyNumber" />
+          <ScalarProperty Name="SeeNumber" ColumnName="SeeNumber" />
+          <ScalarProperty Name="LastReplyUserID" ColumnName="LastReplyUserID" />
+          <ScalarProperty Name="LastReplytime" ColumnName="LastReplytime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForumMain">
+      <EntityTypeMapping TypeName="BBSDBModel.ForumMain">
+        <MappingFragment StoreEntitySet="ForumMain">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ForumAreaID" ColumnName="ForumAreaID" />
+          <ScalarProperty Name="ForumClassifyID" ColumnName="ForumClassifyID" />
+          <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="IsRecommend" ColumnName="IsRecommend" />
+          <ScalarProperty Name="Isdelete" ColumnName="Isdelete" />
+          <ScalarProperty Name="Zan" ColumnName="Zan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForumSecond">
+      <EntityTypeMapping TypeName="BBSDBModel.ForumSecond">
+        <MappingFragment StoreEntitySet="ForumSecond">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ForumMainID" ColumnName="ForumMainID" />
+          <ScalarProperty Name="CurSequence" ColumnName="CurSequence" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ReplySequence" ColumnName="ReplySequence" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="ReplyID" ColumnName="ReplyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="BBSDBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserByPermission">
+      <EntityTypeMapping TypeName="BBSDBModel.UserByPermission">
+        <MappingFragment StoreEntitySet="UserByPermission">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserByRole">
+      <EntityTypeMapping TypeName="BBSDBModel.UserByRole">
+        <MappingFragment StoreEntitySet="UserByRole">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersByCustomer">
+      <EntityTypeMapping TypeName="BBSDBModel.UsersByCustomer">
+        <MappingFragment StoreEntitySet="UsersByCustomer">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="SexID" ColumnName="SexID" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
+          <ScalarProperty Name="Shenfenzheng" ColumnName="Shenfenzheng" />
+          <ScalarProperty Name="Fatieshu" ColumnName="Fatieshu" />
+          <ScalarProperty Name="Huitieshu" ColumnName="Huitieshu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersBySystem">
+      <EntityTypeMapping TypeName="BBSDBModel.UsersBySystem">
+        <MappingFragment StoreEntitySet="UsersBySystem">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ZY_Sex">
+      <EntityTypeMapping TypeName="BBSDBModel.ZY_Sex">
+        <MappingFragment StoreEntitySet="ZY_Sex">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserByRoleJoinPermission" TypeName="BBSDBModel.UserByRoleJoinPermission" StoreEntitySet="UserByRoleJoinPermission">
+      <EndProperty Name="UserByPermission">
+        <ScalarProperty Name="ID" ColumnName="PermissionID" />
+      </EndProperty>
+      <EndProperty Name="UserByRole">
+        <ScalarProperty Name="ID" ColumnName="RoleID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

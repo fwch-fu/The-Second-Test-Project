@@ -1,0 +1,157 @@
+﻿
+.ReplyTextAreaContent {
+    padding: 10px;
+    width: 540px;
+    float: right;
+    background-color: #f2fbfc;
+    border-radius: 2px;
+    text-align: right;
+}
+
+.ReplyTextArea {
+    border: 2px solid #D5D5D5;
+    width: 520px;
+}
+
+.ReplyTextAreaContent [type=submit], .ReplyMining [type=submit] {
+    border: 0px;
+    background-color: #5097ef;
+    color: #ffffff;
+    width: 60px;
+    height: 25px;
+    margin-top: 5px;
+}
+
+.ChildReply {
+    width: 80%;
+    margin: 0px auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f2fbfc;
+    border-radius: 4px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D5D5D5;
+}
+
+.ChildReplyTime {
+    text-align: right;
+}
+
+.ChildReplyNickName {
+    color: #5097ef;
+    margin-left: 15px;
+}
+
+.ChildReplyImg {
+    width: 40px;
+    height: 40px;
+}
+
+.ChildReplyContent {
+}
+
+.ReplyMining {
+    text-align: right;
+}
+
+.ReplyMiningTextArea {
+    border: 2px solid #D5D5D5;
+    width: 100%;
+}
+
+.CloseReply {
+    margin-left: 10px;
+    color: #373535;
+    font-size: 13px;
+}
+
+.ReplyConstChar {
+    color: #393636;
+}
+
+.WarningInfo {
+    width:700px;
+    height:420px;
+}
+
+.WarningInfoType {
+    width:600px;
+    height:50px;
+    padding:10px 0 10px 0;
+    margin:0px auto;
+}
+
+.WarningInfoContent {
+    width:600px;
+    height:300px;
+    margin:0px auto;
+}
+.WarningInfoRange {
+    margin-left:12px;
+}
+
+.WarningInfoRangeTitle {
+    background-color:#5097ef;
+    color:#ffffff;
+}
+
+.WarningInfoRangeContent {
+    
+}
+
+.WarningInfoReason {
+    margin-left:25px;
+}
+
+.WarningInfoReasonTitle {
+    background-color:#D5D5D5;
+    color:#000000;
+}
+
+.WarningInfoReasonContent {
+
+}
+.WarningInfoRange, .WarningInfoReason {
+    float:left;
+    width:275px;
+    height:300px;
+    border:1px;
+    border-style:solid;
+    border-color:#D5D5D5;
+}
+.WarningInfoRangeTitle, .WarningInfoReasonTitle {
+    width:260px;
+    height:30px;
+    line-height:30px;
+    margin:0px auto;
+    margin-top:10px;
+    text-align:center;
+}
+.WarningInfoRangeContent,.WarningInfoReasonContent {
+    width:260px;
+    height:250px;
+    margin:0px auto;
+    margin-top:10px;
+    text-align:center;    
+}
+.WarningOperaBtnBox {
+    height:40px;
+    text-align:center;
+}
+.WarningOperaBtn {
+    border: 0px;
+    background-color: #5097ef;
+    color: #ffffff;
+    width: 60px;
+    height: 25px;
+    margin-top: 10px;
+}
+.WarningInfoText {
+    border: 1px solid #D5D5D5;
+    width:258px;
+    height:150px;
+}
+.WarningInfoTextBox {
+    text-align:left;
+}

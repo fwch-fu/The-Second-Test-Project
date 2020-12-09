@@ -1,0 +1,68 @@
+﻿@model BBSSite.Areas.Admins.ViewModels.EditAdminEntity
+@{
+    ViewBag.Title = "修改用户";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section link{
+    <link rel="stylesheet" href="@Urls.ContentCssUrl/admins/Public.css" />
+}
+@using (Html.BeginForm("DoEditAdmins", "Users", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container toppx1">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.HiddenFor(TB=>TB.ID)
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span>&nbsp;&nbsp;&nbsp;用&nbsp;&nbsp;户&nbsp;&nbsp;名&nbsp;&nbsp;&nbsp;</span>
+                    <span>@Model.UserName</span>
+                </div>
+            </div>
+        <div class="col-md-3"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
+                @Html.TextBoxFor(TB => TB.NickName, new { @class = "form-control" })
+                <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.NickName)</span>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon">选择角色</span>
+                @Html.DropDownList("RoleID", (IList<SelectListItem>)ViewBag.DropDownListRoleID, new { @class = "form-control" })
+                <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.RoleID)</span>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</span>
+                @Html.TextBoxFor(TB => TB.Email, new { @class = "form-control" })
+                <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.Email) </span>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input type="submit" name="sublogin" class="OnLogin" value="修改" />
+        </div>
+    </div>
+</div>
+}

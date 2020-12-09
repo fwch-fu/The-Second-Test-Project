@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ad86bd32da47422390bbba741c974c33" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_BBSModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_ForumInfoStatus" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_ForumReport" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_ForumSecond" Width="1.5" PointX="10.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_UserByRole" Width="1.5" PointX="1.5" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_UserByRoleJoinColumn" Width="1.5" PointX="3.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_UsersBySystem" Width="1.5" PointX="3.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_ZY_ForumReportType" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_ZY_ReportType" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_ZY_Sex" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="DB_BBSModel.FK_tb_ForumReport_tb_ZY_ForumReportType" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_BBSModel.FK_tb_ForumReport_tb_ZY_ReportType" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_BBSModel.FK_tb_UserByRoleJoinColumn_tb_UserByRole" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_BBSModel.FK_UsersBySystem_UserByRole" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_Column" Width="1.5" PointX="8.375" PointY="9.875" />
+        <AssociationConnector Association="DB_BBSModel.FK_tb_UserByRoleJoinColumn_tb_Column" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_ForumArea" Width="1.5" PointX="5.375" PointY="9.875" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_UsersByCustomer" Width="1.5" PointX="3" PointY="4.75" />
+        <AssociationConnector Association="DB_BBSModel.FK_ForumInfoStatus_UsersByCustomer" />
+        <AssociationConnector Association="DB_BBSModel.FK_tb_ForumReport_tb_UsersByCustomer" />
+        <AssociationConnector Association="DB_BBSModel.FK_ForumSecond_UsersByCustomer" />
+        <AssociationConnector Association="DB_BBSModel.FK_UsersByCustomer_ZY_Sex" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_ForumClassify" Width="1.5" PointX="10.625" PointY="9.75" />
+        <AssociationConnector Association="DB_BBSModel.FK_ForumClassify_ForumArea" />
+        <AssociationConnector Association="DB_BBSModel.FK_ForumClassify_UsersBySystem" />
+        <EntityTypeShape EntityType="DB_BBSModel.tb_ForumMain" Width="1.5" PointX="12.875" PointY="6.75" />
+        <AssociationConnector Association="DB_BBSModel.FK_ForumMain_ForumArea" />
+        <AssociationConnector Association="DB_BBSModel.FK_ForumMain_ForumClassify" />
+        <AssociationConnector Association="DB_BBSModel.FK_ForumInfoStatus_ForumMain" />
+        <AssociationConnector Association="DB_BBSModel.FK_ForumMain_UsersByCustomer" />
+        <AssociationConnector Association="DB_BBSModel.FK_ForumSecond_ForumMain" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

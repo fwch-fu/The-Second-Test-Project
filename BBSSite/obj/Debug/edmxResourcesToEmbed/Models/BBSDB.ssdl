@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BBSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ForumArea">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AreaName" Type="varchar" MaxLength="64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForumClassify">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ForumAreaID" Type="int" Nullable="false" />
+    <Property Name="ForumUserID" Type="int" Nullable="false" />
+    <Property Name="ClassifyName" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="ClassifyLogo" Type="varchar" MaxLength="526" Nullable="false" />
+    <Property Name="ClassifyInnerLogo" Type="varchar" MaxLength="526" />
+    <Property Name="ClassifyOrder" Type="int" Nullable="false" />
+    <Property Name="ClassifyIsleaf" Type="bit" />
+  </EntityType>
+  <EntityType Name="ForumInfoStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ForumMainID" Type="int" Nullable="false" />
+    <Property Name="ReplyNumber" Type="int" Nullable="false" />
+    <Property Name="SeeNumber" Type="int" Nullable="false" />
+    <Property Name="LastReplyUserID" Type="int" />
+    <Property Name="LastReplytime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ForumMain">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="128" Nullable="false" />
+    <Property Name="ForumAreaID" Type="int" Nullable="false" />
+    <Property Name="ForumClassifyID" Type="int" Nullable="false" />
+    <Property Name="CreateUserID" Type="int" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="Content" Type="text" Nullable="false" />
+    <Property Name="IsRecommend" Type="bit" Nullable="false" />
+    <Property Name="Isdelete" Type="bit" Nullable="false" />
+    <Property Name="Zan" Type="int" />
+  </EntityType>
+  <EntityType Name="ForumSecond">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ForumMainID" Type="int" Nullable="false" />
+    <Property Name="CurSequence" Type="int" Nullable="false" />
+    <Property Name="Content" Type="text" Nullable="false" />
+    <Property Name="CreateUserID" Type="int" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="ReplySequence" Type="int" Nullable="false" />
+    <Property Name="IsDelete" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="ReplyID" Type="varchar" MaxLength="64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UserByPermission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PermissionName" Type="varchar" MaxLength="60" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserByRole">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="60" Nullable="false" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“BBSDB.dbo.UserByRoleJoinPermission”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="UserByRoleJoinPermission">
+    <Key>
+      <PropertyRef Name="RoleID" />
+      <PropertyRef Name="PermissionID" />
+    </Key>
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="PermissionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsersByCustomer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NickName" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="SexID" Type="int" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="PhotoUrl" Type="varchar" MaxLength="255" />
+    <Property Name="Shenfenzheng" Type="varchar" MaxLength="20" />
+    <Property Name="Fatieshu" Type="int" />
+    <Property Name="Huitieshu" Type="int" />
+  </EntityType>
+  <EntityType Name="UsersBySystem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="NickName" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="ZY_Sex">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Content" Type="char" MaxLength="2" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ForumClassify_ForumArea">
+    <End Role="ForumArea" Type="Self.ForumArea" Multiplicity="1" />
+    <End Role="ForumClassify" Type="Self.ForumClassify" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForumArea">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumClassify">
+        <PropertyRef Name="ForumAreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumClassify_UsersBySystem">
+    <End Role="UsersBySystem" Type="Self.UsersBySystem" Multiplicity="1" />
+    <End Role="ForumClassify" Type="Self.ForumClassify" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersBySystem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumClassify">
+        <PropertyRef Name="ForumUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumInfoStatus_ForumMain">
+    <End Role="ForumMain" Type="Self.ForumMain" Multiplicity="1" />
+    <End Role="ForumInfoStatus" Type="Self.ForumInfoStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForumMain">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumInfoStatus">
+        <PropertyRef Name="ForumMainID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumInfoStatus_UsersByCustomer">
+    <End Role="UsersByCustomer" Type="Self.UsersByCustomer" Multiplicity="0..1" />
+    <End Role="ForumInfoStatus" Type="Self.ForumInfoStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumInfoStatus">
+        <PropertyRef Name="LastReplyUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumMain_ForumArea">
+    <End Role="ForumArea" Type="Self.ForumArea" Multiplicity="1" />
+    <End Role="ForumMain" Type="Self.ForumMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForumArea">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumMain">
+        <PropertyRef Name="ForumAreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumMain_ForumClassify">
+    <End Role="ForumClassify" Type="Self.ForumClassify" Multiplicity="1" />
+    <End Role="ForumMain" Type="Self.ForumMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForumClassify">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumMain">
+        <PropertyRef Name="ForumClassifyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumMain_UsersByCustomer">
+    <End Role="UsersByCustomer" Type="Self.UsersByCustomer" Multiplicity="1" />
+    <End Role="ForumMain" Type="Self.ForumMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumMain">
+        <PropertyRef Name="CreateUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumSecond_ForumMain">
+    <End Role="ForumMain" Type="Self.ForumMain" Multiplicity="1" />
+    <End Role="ForumSecond" Type="Self.ForumSecond" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ForumMain">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumSecond">
+        <PropertyRef Name="ForumMainID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumSecond_UsersByCustomer">
+    <End Role="UsersByCustomer" Type="Self.UsersByCustomer" Multiplicity="1" />
+    <End Role="ForumSecond" Type="Self.ForumSecond" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ForumSecond">
+        <PropertyRef Name="CreateUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserByRoleJoinPermission_UserByPermission">
+    <End Role="UserByPermission" Type="Self.UserByPermission" Multiplicity="1" />
+    <End Role="UserByRoleJoinPermission" Type="Self.UserByRoleJoinPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserByPermission">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserByRoleJoinPermission">
+        <PropertyRef Name="PermissionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserByRoleJoinPermission_UserByRole">
+    <End Role="UserByRole" Type="Self.UserByRole" Multiplicity="1" />
+    <End Role="UserByRoleJoinPermission" Type="Self.UserByRoleJoinPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserByRole">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserByRoleJoinPermission">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersByCustomer_ZY_Sex">
+    <End Role="ZY_Sex" Type="Self.ZY_Sex" Multiplicity="1" />
+    <End Role="UsersByCustomer" Type="Self.UsersByCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZY_Sex">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UsersByCustomer">
+        <PropertyRef Name="SexID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersBySystem_UserByRole">
+    <End Role="UserByRole" Type="Self.UserByRole" Multiplicity="1" />
+    <End Role="UsersBySystem" Type="Self.UsersBySystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserByRole">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UsersBySystem">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BBSDBModelStoreContainer">
+    <EntitySet Name="ForumArea" EntityType="Self.ForumArea" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForumClassify" EntityType="Self.ForumClassify" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForumInfoStatus" EntityType="Self.ForumInfoStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForumMain" EntityType="Self.ForumMain" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForumSecond" EntityType="Self.ForumSecond" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserByPermission" EntityType="Self.UserByPermission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserByRole" EntityType="Self.UserByRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsersByCustomer" EntityType="Self.UsersByCustomer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsersBySystem" EntityType="Self.UsersBySystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ZY_Sex" EntityType="Self.ZY_Sex" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserByRoleJoinPermission" EntityType="Self.UserByRoleJoinPermission" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [UserByRoleJoinPermission].[RoleID] AS [RoleID], 
+    [UserByRoleJoinPermission].[PermissionID] AS [PermissionID]
+    FROM [dbo].[UserByRoleJoinPermission] AS [UserByRoleJoinPermission]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_ForumClassify_ForumArea" Association="Self.FK_ForumClassify_ForumArea">
+      <End Role="ForumArea" EntitySet="ForumArea" />
+      <End Role="ForumClassify" EntitySet="ForumClassify" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumClassify_UsersBySystem" Association="Self.FK_ForumClassify_UsersBySystem">
+      <End Role="UsersBySystem" EntitySet="UsersBySystem" />
+      <End Role="ForumClassify" EntitySet="ForumClassify" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumInfoStatus_ForumMain" Association="Self.FK_ForumInfoStatus_ForumMain">
+      <End Role="ForumMain" EntitySet="ForumMain" />
+      <End Role="ForumInfoStatus" EntitySet="ForumInfoStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumInfoStatus_UsersByCustomer" Association="Self.FK_ForumInfoStatus_UsersByCustomer">
+      <End Role="UsersByCustomer" EntitySet="UsersByCustomer" />
+      <End Role="ForumInfoStatus" EntitySet="ForumInfoStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumMain_ForumArea" Association="Self.FK_ForumMain_ForumArea">
+      <End Role="ForumArea" EntitySet="ForumArea" />
+      <End Role="ForumMain" EntitySet="ForumMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumMain_ForumClassify" Association="Self.FK_ForumMain_ForumClassify">
+      <End Role="ForumClassify" EntitySet="ForumClassify" />
+      <End Role="ForumMain" EntitySet="ForumMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumMain_UsersByCustomer" Association="Self.FK_ForumMain_UsersByCustomer">
+      <End Role="UsersByCustomer" EntitySet="UsersByCustomer" />
+      <End Role="ForumMain" EntitySet="ForumMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumSecond_ForumMain" Association="Self.FK_ForumSecond_ForumMain">
+      <End Role="ForumMain" EntitySet="ForumMain" />
+      <End Role="ForumSecond" EntitySet="ForumSecond" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumSecond_UsersByCustomer" Association="Self.FK_ForumSecond_UsersByCustomer">
+      <End Role="UsersByCustomer" EntitySet="UsersByCustomer" />
+      <End Role="ForumSecond" EntitySet="ForumSecond" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserByRoleJoinPermission_UserByPermission" Association="Self.FK_UserByRoleJoinPermission_UserByPermission">
+      <End Role="UserByPermission" EntitySet="UserByPermission" />
+      <End Role="UserByRoleJoinPermission" EntitySet="UserByRoleJoinPermission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserByRoleJoinPermission_UserByRole" Association="Self.FK_UserByRoleJoinPermission_UserByRole">
+      <End Role="UserByRole" EntitySet="UserByRole" />
+      <End Role="UserByRoleJoinPermission" EntitySet="UserByRoleJoinPermission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersByCustomer_ZY_Sex" Association="Self.FK_UsersByCustomer_ZY_Sex">
+      <End Role="ZY_Sex" EntitySet="ZY_Sex" />
+      <End Role="UsersByCustomer" EntitySet="UsersByCustomer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersBySystem_UserByRole" Association="Self.FK_UsersBySystem_UserByRole">
+      <End Role="UserByRole" EntitySet="UserByRole" />
+      <End Role="UsersBySystem" EntitySet="UsersBySystem" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

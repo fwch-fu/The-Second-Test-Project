@@ -1,0 +1,44 @@
+﻿@model BBSSite.Areas.Admins.ViewModels.CreateForumAreaEntity
+@{
+    ViewBag.Title = "创建专区";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section link{
+    <link rel="stylesheet" href="@Urls.ContentCssUrl/admins/Public.css" />
+}
+@using (Html.BeginForm("DoCreateSection", "Section", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container toppx1">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">专区名称</span>
+                    @Html.TextBoxFor(TB => TB.AreaName, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.AreaName)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">选择版主</span>
+                    @Html.DropDownListFor(TB => TB.UserID, (IEnumerable<SelectListItem>)ViewBag.Users, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.UserID)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <input type="submit" name="sublogin" class="OnLogin" value="创建" />
+                &nbsp;@Html.ValidationMessage("SectionError", new { style = "color:Red" })
+            </div>
+        </div>
+    </div>
+}

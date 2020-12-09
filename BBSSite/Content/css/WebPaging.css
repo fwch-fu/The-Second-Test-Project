@@ -1,0 +1,40 @@
+﻿.WebPaging {
+    height:35px;
+}
+.PageButton {
+    font-size:15px;
+    font-family:'Microsoft YaHei';
+    font-weight:500;
+    color:#0b86fb;
+    cursor:pointer;
+}
+.PageShowChar {
+    color:#808080;
+}
+.PageInputPageNumber {
+    width:50px;
+    height:23px;
+    margin-left:10px;
+}
+.GotoPageIndex {
+    width:40px;
+    height:23px;
+    font-size:14px;
+    padding-top:1px;
+}
+.PageInputPageNumber,.GotoPageIndex {
+    border:1px;
+    border-style:solid;
+    border-color:#808080;
+    color:#000000;
+}
+.WebPaging a {
+    margin-left:5px;
+    text-decoration:none;
+}
+.PageButtonSelected {
+    margin-left:5px;
+    text-decoration:none;
+    color:#808080;
+    cursor:default;
+}

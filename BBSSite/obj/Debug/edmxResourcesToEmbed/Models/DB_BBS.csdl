@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_BBSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tb_ForumInfoStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ForumMainID" Type="Int32" Nullable="false" />
+    <Property Name="ReplyNumber" Type="Int32" Nullable="false" />
+    <Property Name="SeeNumber" Type="Int32" Nullable="false" />
+    <Property Name="LastReplyUserID" Type="Int32" />
+    <Property Name="LastReplytime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tb_UsersByCustomer" Relationship="DB_BBSModel.FK_ForumInfoStatus_UsersByCustomer" FromRole="tb_ForumInfoStatus" ToRole="tb_UsersByCustomer" />
+    <NavigationProperty Name="tb_ForumMain" Relationship="DB_BBSModel.FK_ForumInfoStatus_ForumMain" FromRole="tb_ForumInfoStatus" ToRole="tb_ForumMain" />
+  </EntityType>
+  <EntityType Name="tb_ForumReport">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReportForumTypeID" Type="Int32" Nullable="false" />
+    <Property Name="ForumID" Type="Int32" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateUserID" Type="Int32" Nullable="false" />
+    <Property Name="ReportTypeID" Type="Int32" Nullable="false" />
+    <Property Name="ReportDetailContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tb_ZY_ForumReportType" Relationship="Self.FK_tb_ForumReport_tb_ZY_ForumReportType" FromRole="tb_ForumReport" ToRole="tb_ZY_ForumReportType" />
+    <NavigationProperty Name="tb_ZY_ReportType" Relationship="Self.FK_tb_ForumReport_tb_ZY_ReportType" FromRole="tb_ForumReport" ToRole="tb_ZY_ReportType" />
+    <NavigationProperty Name="tb_UsersByCustomer" Relationship="DB_BBSModel.FK_tb_ForumReport_tb_UsersByCustomer" FromRole="tb_ForumReport" ToRole="tb_UsersByCustomer" />
+  </EntityType>
+  <EntityType Name="tb_ForumSecond">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ForumMainID" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreateUserID" Type="Int32" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CurSequence" Type="Int32" Nullable="false" />
+    <Property Name="ReplySequenceID" Type="Int32" Nullable="false" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tb_UsersByCustomer" Relationship="DB_BBSModel.FK_ForumSecond_UsersByCustomer" FromRole="tb_ForumSecond" ToRole="tb_UsersByCustomer" />
+    <NavigationProperty Name="tb_ForumMain" Relationship="DB_BBSModel.FK_ForumSecond_ForumMain" FromRole="tb_ForumSecond" ToRole="tb_ForumMain" />
+  </EntityType>
+  <EntityType Name="tb_UserByRole">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tb_UserByRoleJoinColumn" Relationship="Self.FK_tb_UserByRoleJoinColumn_tb_UserByRole" FromRole="tb_UserByRole" ToRole="tb_UserByRoleJoinColumn" />
+    <NavigationProperty Name="tb_UsersBySystem" Relationship="Self.FK_UsersBySystem_UserByRole" FromRole="tb_UserByRole" ToRole="tb_UsersBySystem" />
+  </EntityType>
+  <EntityType Name="tb_UserByRoleJoinColumn">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="ColumnID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tb_UserByRole" Relationship="Self.FK_tb_UserByRoleJoinColumn_tb_UserByRole" FromRole="tb_UserByRoleJoinColumn" ToRole="tb_UserByRole" />
+    <NavigationProperty Name="tb_Column" Relationship="DB_BBSModel.FK_tb_UserByRoleJoinColumn_tb_Column" FromRole="tb_UserByRoleJoinColumn" ToRole="tb_Column" />
+  </EntityType>
+  <EntityType Name="tb_UsersBySystem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NickName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserPassword" Type="Binary" MaxLength="1024" FixedLength="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tb_UserByRole" Relationship="Self.FK_UsersBySystem_UserByRole" FromRole="tb_UsersBySystem" ToRole="tb_UserByRole" />
+  </EntityType>
+  <EntityType Name="tb_ZY_ForumReportType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tb_ForumReport" Relationship="Self.FK_tb_ForumReport_tb_ZY_ForumReportType" FromRole="tb_ZY_ForumReportType" ToRole="tb_ForumReport" />
+  </EntityType>
+  <EntityType Name="tb_ZY_ReportType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReportType" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tb_ForumReport" Relationship="Self.FK_tb_ForumReport_tb_ZY_ReportType" FromRole="tb_ZY_ReportType" ToRole="tb_ForumReport" />
+  </EntityType>
+  <EntityType Name="tb_ZY_Sex">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tb_UsersByCustomer" Relationship="DB_BBSModel.FK_UsersByCustomer_ZY_Sex" FromRole="tb_ZY_Sex" ToRole="tb_UsersByCustomer" />
+  </EntityType>
+  <Association Name="FK_tb_ForumReport_tb_ZY_ForumReportType">
+    <End Role="tb_ZY_ForumReportType" Type="Self.tb_ZY_ForumReportType" Multiplicity="1" />
+    <End Role="tb_ForumReport" Type="Self.tb_ForumReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_ZY_ForumReportType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumReport">
+        <PropertyRef Name="ReportForumTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ForumReport_tb_ZY_ReportType">
+    <End Role="tb_ZY_ReportType" Type="Self.tb_ZY_ReportType" Multiplicity="1" />
+    <End Role="tb_ForumReport" Type="Self.tb_ForumReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_ZY_ReportType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumReport">
+        <PropertyRef Name="ReportTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserByRoleJoinColumn_tb_UserByRole">
+    <End Role="tb_UserByRole" Type="Self.tb_UserByRole" Multiplicity="1" />
+    <End Role="tb_UserByRoleJoinColumn" Type="Self.tb_UserByRoleJoinColumn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_UserByRole">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_UserByRoleJoinColumn">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersBySystem_UserByRole">
+    <End Role="tb_UserByRole" Type="Self.tb_UserByRole" Multiplicity="1" />
+    <End Role="tb_UsersBySystem" Type="Self.tb_UsersBySystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_UserByRole">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_UsersBySystem">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_BBSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tb_ForumInfoStatus" EntityType="Self.tb_ForumInfoStatus" />
+    <EntitySet Name="tb_ForumReport" EntityType="Self.tb_ForumReport" />
+    <EntitySet Name="tb_ForumSecond" EntityType="Self.tb_ForumSecond" />
+    <EntitySet Name="tb_UserByRole" EntityType="Self.tb_UserByRole" />
+    <EntitySet Name="tb_UserByRoleJoinColumn" EntityType="Self.tb_UserByRoleJoinColumn" />
+    <EntitySet Name="tb_UsersBySystem" EntityType="Self.tb_UsersBySystem" />
+    <EntitySet Name="tb_ZY_ForumReportType" EntityType="Self.tb_ZY_ForumReportType" />
+    <EntitySet Name="tb_ZY_ReportType" EntityType="Self.tb_ZY_ReportType" />
+    <EntitySet Name="tb_ZY_Sex" EntityType="Self.tb_ZY_Sex" />
+    <AssociationSet Name="FK_tb_ForumReport_tb_ZY_ForumReportType" Association="Self.FK_tb_ForumReport_tb_ZY_ForumReportType">
+      <End Role="tb_ZY_ForumReportType" EntitySet="tb_ZY_ForumReportType" />
+      <End Role="tb_ForumReport" EntitySet="tb_ForumReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ForumReport_tb_ZY_ReportType" Association="Self.FK_tb_ForumReport_tb_ZY_ReportType">
+      <End Role="tb_ZY_ReportType" EntitySet="tb_ZY_ReportType" />
+      <End Role="tb_ForumReport" EntitySet="tb_ForumReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserByRoleJoinColumn_tb_UserByRole" Association="Self.FK_tb_UserByRoleJoinColumn_tb_UserByRole">
+      <End Role="tb_UserByRole" EntitySet="tb_UserByRole" />
+      <End Role="tb_UserByRoleJoinColumn" EntitySet="tb_UserByRoleJoinColumn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersBySystem_UserByRole" Association="Self.FK_UsersBySystem_UserByRole">
+      <End Role="tb_UserByRole" EntitySet="tb_UserByRole" />
+      <End Role="tb_UsersBySystem" EntitySet="tb_UsersBySystem" />
+    </AssociationSet>
+    <EntitySet Name="tb_Column" EntityType="DB_BBSModel.tb_Column" />
+    <AssociationSet Name="FK_tb_UserByRoleJoinColumn_tb_Column" Association="DB_BBSModel.FK_tb_UserByRoleJoinColumn_tb_Column">
+      <End Role="tb_Column" EntitySet="tb_Column" />
+      <End Role="tb_UserByRoleJoinColumn" EntitySet="tb_UserByRoleJoinColumn" />
+    </AssociationSet>
+    <EntitySet Name="tb_ForumArea" EntityType="DB_BBSModel.tb_ForumArea" />
+    <EntitySet Name="tb_UsersByCustomer" EntityType="DB_BBSModel.tb_UsersByCustomer" />
+    <AssociationSet Name="FK_ForumInfoStatus_UsersByCustomer" Association="DB_BBSModel.FK_ForumInfoStatus_UsersByCustomer">
+      <End Role="tb_UsersByCustomer" EntitySet="tb_UsersByCustomer" />
+      <End Role="tb_ForumInfoStatus" EntitySet="tb_ForumInfoStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ForumReport_tb_UsersByCustomer" Association="DB_BBSModel.FK_tb_ForumReport_tb_UsersByCustomer">
+      <End Role="tb_UsersByCustomer" EntitySet="tb_UsersByCustomer" />
+      <End Role="tb_ForumReport" EntitySet="tb_ForumReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumSecond_UsersByCustomer" Association="DB_BBSModel.FK_ForumSecond_UsersByCustomer">
+      <End Role="tb_UsersByCustomer" EntitySet="tb_UsersByCustomer" />
+      <End Role="tb_ForumSecond" EntitySet="tb_ForumSecond" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersByCustomer_ZY_Sex" Association="DB_BBSModel.FK_UsersByCustomer_ZY_Sex">
+      <End Role="tb_ZY_Sex" EntitySet="tb_ZY_Sex" />
+      <End Role="tb_UsersByCustomer" EntitySet="tb_UsersByCustomer" />
+    </AssociationSet>
+    <EntitySet Name="tb_ForumClassify" EntityType="DB_BBSModel.tb_ForumClassify" />
+    <AssociationSet Name="FK_ForumClassify_ForumArea" Association="DB_BBSModel.FK_ForumClassify_ForumArea">
+      <End Role="tb_ForumArea" EntitySet="tb_ForumArea" />
+      <End Role="tb_ForumClassify" EntitySet="tb_ForumClassify" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumClassify_UsersBySystem" Association="DB_BBSModel.FK_ForumClassify_UsersBySystem">
+      <End Role="tb_UsersByCustomer" EntitySet="tb_UsersByCustomer" />
+      <End Role="tb_ForumClassify" EntitySet="tb_ForumClassify" />
+    </AssociationSet>
+    <FunctionImport Name="SP_Get_UsersByCustomer_NotTargetForumArea" ReturnType="Collection(DB_BBSModel.SP_Get_UsersByCustomer_NotTargetForumArea_Result)" />
+    <FunctionImport Name="DBUpdate">
+      <Parameter Name="TableName" Mode="In" Type="String" />
+      <Parameter Name="SetField" Mode="In" Type="String" />
+      <Parameter Name="WhereField" Mode="In" Type="String" />
+      <Parameter Name="AndField" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DB_BBSModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DB_BBSModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="SP_Get_UsersByCustomer_NotTargetForumClassify" ReturnType="Collection(DB_BBSModel.SP_Get_UsersByCustomer_NotTargetForumClassify_Result)" />
+    <FunctionImport Name="SP_Get_RoleJoinColumn" ReturnType="Collection(DB_BBSModel.SP_Get_RoleJoinColumn_Result)">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="tb_ForumMain" EntityType="DB_BBSModel.tb_ForumMain" />
+    <AssociationSet Name="FK_ForumMain_ForumArea" Association="DB_BBSModel.FK_ForumMain_ForumArea">
+      <End Role="tb_ForumArea" EntitySet="tb_ForumArea" />
+      <End Role="tb_ForumMain" EntitySet="tb_ForumMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumMain_ForumClassify" Association="DB_BBSModel.FK_ForumMain_ForumClassify">
+      <End Role="tb_ForumClassify" EntitySet="tb_ForumClassify" />
+      <End Role="tb_ForumMain" EntitySet="tb_ForumMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumInfoStatus_ForumMain" Association="DB_BBSModel.FK_ForumInfoStatus_ForumMain">
+      <End Role="tb_ForumMain" EntitySet="tb_ForumMain" />
+      <End Role="tb_ForumInfoStatus" EntitySet="tb_ForumInfoStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumMain_UsersByCustomer" Association="DB_BBSModel.FK_ForumMain_UsersByCustomer">
+      <End Role="tb_UsersByCustomer" EntitySet="tb_UsersByCustomer" />
+      <End Role="tb_ForumMain" EntitySet="tb_ForumMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumSecond_ForumMain" Association="DB_BBSModel.FK_ForumSecond_ForumMain">
+      <End Role="tb_ForumMain" EntitySet="tb_ForumMain" />
+      <End Role="tb_ForumSecond" EntitySet="tb_ForumSecond" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tb_Column">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ColumnCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="Url" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="LogoClassName" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tb_UserByRoleJoinColumn" Relationship="DB_BBSModel.FK_tb_UserByRoleJoinColumn_tb_Column" FromRole="tb_Column" ToRole="tb_UserByRoleJoinColumn" />
+  </EntityType>
+  <Association Name="FK_tb_UserByRoleJoinColumn_tb_Column">
+    <End Type="DB_BBSModel.tb_Column" Role="tb_Column" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_UserByRoleJoinColumn" Role="tb_UserByRoleJoinColumn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Column">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_UserByRoleJoinColumn">
+        <PropertyRef Name="ColumnID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tb_ForumArea">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AreaName" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tb_ForumClassify" Relationship="DB_BBSModel.FK_ForumClassify_ForumArea" FromRole="tb_ForumArea" ToRole="tb_ForumClassify" />
+    <NavigationProperty Name="tb_ForumMain" Relationship="DB_BBSModel.FK_ForumMain_ForumArea" FromRole="tb_ForumArea" ToRole="tb_ForumMain" />
+  </EntityType>
+  <EntityType Name="tb_UsersByCustomer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="UserPassword" Type="Binary" Nullable="false" MaxLength="1024" FixedLength="false" />
+    <Property Name="NickName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SexID" Type="Int32" Nullable="false" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <Property Name="IsModerator" Type="Boolean" Nullable="false" />
+    <Property Name="PhotoUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Fatieshu" Type="Int32" />
+    <Property Name="Huitieshu" Type="Int32" />
+    <NavigationProperty Name="tb_ForumInfoStatus" Relationship="DB_BBSModel.FK_ForumInfoStatus_UsersByCustomer" FromRole="tb_UsersByCustomer" ToRole="tb_ForumInfoStatus" />
+    <NavigationProperty Name="tb_ForumReport" Relationship="DB_BBSModel.FK_tb_ForumReport_tb_UsersByCustomer" FromRole="tb_UsersByCustomer" ToRole="tb_ForumReport" />
+    <NavigationProperty Name="tb_ForumSecond" Relationship="DB_BBSModel.FK_ForumSecond_UsersByCustomer" FromRole="tb_UsersByCustomer" ToRole="tb_ForumSecond" />
+    <NavigationProperty Name="tb_ZY_Sex" Relationship="DB_BBSModel.FK_UsersByCustomer_ZY_Sex" FromRole="tb_UsersByCustomer" ToRole="tb_ZY_Sex" />
+    <NavigationProperty Name="tb_ForumClassify" Relationship="DB_BBSModel.FK_ForumClassify_UsersBySystem" FromRole="tb_UsersByCustomer" ToRole="tb_ForumClassify" />
+    <NavigationProperty Name="tb_ForumMain" Relationship="DB_BBSModel.FK_ForumMain_UsersByCustomer" FromRole="tb_UsersByCustomer" ToRole="tb_ForumMain" />
+  </EntityType>
+  <Association Name="FK_ForumInfoStatus_UsersByCustomer">
+    <End Type="DB_BBSModel.tb_UsersByCustomer" Role="tb_UsersByCustomer" Multiplicity="0..1" />
+    <End Type="DB_BBSModel.tb_ForumInfoStatus" Role="tb_ForumInfoStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumInfoStatus">
+        <PropertyRef Name="LastReplyUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ForumReport_tb_UsersByCustomer">
+    <End Type="DB_BBSModel.tb_UsersByCustomer" Role="tb_UsersByCustomer" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_ForumReport" Role="tb_ForumReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumReport">
+        <PropertyRef Name="CreateUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumSecond_UsersByCustomer">
+    <End Type="DB_BBSModel.tb_UsersByCustomer" Role="tb_UsersByCustomer" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_ForumSecond" Role="tb_ForumSecond" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumSecond">
+        <PropertyRef Name="CreateUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersByCustomer_ZY_Sex">
+    <End Type="DB_BBSModel.tb_ZY_Sex" Role="tb_ZY_Sex" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_UsersByCustomer" Role="tb_UsersByCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_ZY_Sex">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_UsersByCustomer">
+        <PropertyRef Name="SexID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tb_ForumClassify">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ForumAreaID" Type="Int32" Nullable="false" />
+    <Property Name="ForumUserID" Type="Int32" Nullable="false" />
+    <Property Name="ClassifyName" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="ClassifyLogo" Type="String" Nullable="false" MaxLength="526" FixedLength="false" Unicode="false" />
+    <Property Name="ClassifyInnerLogo" Type="String" MaxLength="526" FixedLength="false" Unicode="false" />
+    <Property Name="ClassifyOrder" Type="Int32" Nullable="false" />
+    <Property Name="ClassifyIsleaf" Type="Boolean" />
+    <NavigationProperty Name="tb_ForumArea" Relationship="DB_BBSModel.FK_ForumClassify_ForumArea" FromRole="tb_ForumClassify" ToRole="tb_ForumArea" />
+    <NavigationProperty Name="tb_UsersByCustomer" Relationship="DB_BBSModel.FK_ForumClassify_UsersBySystem" FromRole="tb_ForumClassify" ToRole="tb_UsersByCustomer" />
+    <NavigationProperty Name="tb_ForumMain" Relationship="DB_BBSModel.FK_ForumMain_ForumClassify" FromRole="tb_ForumClassify" ToRole="tb_ForumMain" />
+  </EntityType>
+  <Association Name="FK_ForumClassify_ForumArea">
+    <End Type="DB_BBSModel.tb_ForumArea" Role="tb_ForumArea" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_ForumClassify" Role="tb_ForumClassify" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_ForumArea">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumClassify">
+        <PropertyRef Name="ForumAreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumClassify_UsersBySystem">
+    <End Type="DB_BBSModel.tb_UsersByCustomer" Role="tb_UsersByCustomer" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_ForumClassify" Role="tb_ForumClassify" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumClassify">
+        <PropertyRef Name="ForumUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="SP_Get_UsersByCustomer_NotTargetForumArea_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="NickName" Nullable="false" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_Get_UsersByCustomer_NotTargetForumClassify_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="NickName" Nullable="false" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="SP_Get_RoleJoinColumn_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="ColumnName" Nullable="false" MaxLength="60" />
+    <Property Type="Int32" Name="JoinID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="tb_ForumMain">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="ForumAreaID" Type="Int32" Nullable="false" />
+    <Property Name="ForumClassifyID" Type="Int32" Nullable="false" />
+    <Property Name="CreateUserID" Type="Int32" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsRecommend" Type="Boolean" Nullable="false" />
+    <Property Name="Isdelete" Type="Boolean" Nullable="false" />
+    <Property Name="IsExamine" Type="Int32" Nullable="false" />
+    <Property Name="Zan" Type="Int32" />
+    <NavigationProperty Name="tb_ForumArea" Relationship="DB_BBSModel.FK_ForumMain_ForumArea" FromRole="tb_ForumMain" ToRole="tb_ForumArea" />
+    <NavigationProperty Name="tb_ForumClassify" Relationship="DB_BBSModel.FK_ForumMain_ForumClassify" FromRole="tb_ForumMain" ToRole="tb_ForumClassify" />
+    <NavigationProperty Name="tb_ForumInfoStatus" Relationship="DB_BBSModel.FK_ForumInfoStatus_ForumMain" FromRole="tb_ForumMain" ToRole="tb_ForumInfoStatus" />
+    <NavigationProperty Name="tb_UsersByCustomer" Relationship="DB_BBSModel.FK_ForumMain_UsersByCustomer" FromRole="tb_ForumMain" ToRole="tb_UsersByCustomer" />
+    <NavigationProperty Name="tb_ForumSecond" Relationship="DB_BBSModel.FK_ForumSecond_ForumMain" FromRole="tb_ForumMain" ToRole="tb_ForumSecond" />
+  </EntityType>
+  <Association Name="FK_ForumMain_ForumArea">
+    <End Type="DB_BBSModel.tb_ForumArea" Role="tb_ForumArea" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_ForumMain" Role="tb_ForumMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_ForumArea">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumMain">
+        <PropertyRef Name="ForumAreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumMain_ForumClassify">
+    <End Type="DB_BBSModel.tb_ForumClassify" Role="tb_ForumClassify" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_ForumMain" Role="tb_ForumMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_ForumClassify">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumMain">
+        <PropertyRef Name="ForumClassifyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumInfoStatus_ForumMain">
+    <End Type="DB_BBSModel.tb_ForumMain" Role="tb_ForumMain" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_ForumInfoStatus" Role="tb_ForumInfoStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_ForumMain">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumInfoStatus">
+        <PropertyRef Name="ForumMainID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumMain_UsersByCustomer">
+    <End Type="DB_BBSModel.tb_UsersByCustomer" Role="tb_UsersByCustomer" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_ForumMain" Role="tb_ForumMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_UsersByCustomer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumMain">
+        <PropertyRef Name="CreateUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumSecond_ForumMain">
+    <End Type="DB_BBSModel.tb_ForumMain" Role="tb_ForumMain" Multiplicity="1" />
+    <End Type="DB_BBSModel.tb_ForumSecond" Role="tb_ForumSecond" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_ForumMain">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tb_ForumSecond">
+        <PropertyRef Name="ForumMainID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

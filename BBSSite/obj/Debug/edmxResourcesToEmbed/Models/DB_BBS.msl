@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_BBSModelStoreContainer" CdmEntityContainer="DB_BBSEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="DB_BBSModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ForumInfoStatus">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_ForumInfoStatus">
+        <MappingFragment StoreEntitySet="tb_ForumInfoStatus">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ForumMainID" ColumnName="ForumMainID" />
+          <ScalarProperty Name="ReplyNumber" ColumnName="ReplyNumber" />
+          <ScalarProperty Name="SeeNumber" ColumnName="SeeNumber" />
+          <ScalarProperty Name="LastReplyUserID" ColumnName="LastReplyUserID" />
+          <ScalarProperty Name="LastReplytime" ColumnName="LastReplytime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ForumReport">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_ForumReport">
+        <MappingFragment StoreEntitySet="tb_ForumReport">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ReportForumTypeID" ColumnName="ReportForumTypeID" />
+          <ScalarProperty Name="ForumID" ColumnName="ForumID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+          <ScalarProperty Name="ReportTypeID" ColumnName="ReportTypeID" />
+          <ScalarProperty Name="ReportDetailContent" ColumnName="ReportDetailContent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ForumSecond">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_ForumSecond">
+        <MappingFragment StoreEntitySet="tb_ForumSecond">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ForumMainID" ColumnName="ForumMainID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CurSequence" ColumnName="CurSequence" />
+          <ScalarProperty Name="ReplySequenceID" ColumnName="ReplySequenceID" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UserByRole">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_UserByRole">
+        <MappingFragment StoreEntitySet="tb_UserByRole">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UserByRoleJoinColumn">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_UserByRoleJoinColumn">
+        <MappingFragment StoreEntitySet="tb_UserByRoleJoinColumn">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="ColumnID" ColumnName="ColumnID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UsersBySystem">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_UsersBySystem">
+        <MappingFragment StoreEntitySet="tb_UsersBySystem">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ZY_ForumReportType">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_ZY_ForumReportType">
+        <MappingFragment StoreEntitySet="tb_ZY_ForumReportType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ZY_ReportType">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_ZY_ReportType">
+        <MappingFragment StoreEntitySet="tb_ZY_ReportType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ReportType" ColumnName="ReportType" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ZY_Sex">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_ZY_Sex">
+        <MappingFragment StoreEntitySet="tb_ZY_Sex">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Column">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_Column">
+        <MappingFragment StoreEntitySet="tb_Column">
+          <ScalarProperty Name="LogoClassName" ColumnName="LogoClassName" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+          <ScalarProperty Name="ColumnCode" ColumnName="ColumnCode" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ForumArea">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_ForumArea">
+        <MappingFragment StoreEntitySet="tb_ForumArea">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UsersByCustomer">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_UsersByCustomer">
+        <MappingFragment StoreEntitySet="tb_UsersByCustomer">
+          <ScalarProperty Name="Huitieshu" ColumnName="Huitieshu" />
+          <ScalarProperty Name="Fatieshu" ColumnName="Fatieshu" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
+          <ScalarProperty Name="IsModerator" ColumnName="IsModerator" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="SexID" ColumnName="SexID" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ForumClassify">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_ForumClassify">
+        <MappingFragment StoreEntitySet="tb_ForumClassify">
+          <ScalarProperty Name="ClassifyIsleaf" ColumnName="ClassifyIsleaf" />
+          <ScalarProperty Name="ClassifyOrder" ColumnName="ClassifyOrder" />
+          <ScalarProperty Name="ClassifyInnerLogo" ColumnName="ClassifyInnerLogo" />
+          <ScalarProperty Name="ClassifyLogo" ColumnName="ClassifyLogo" />
+          <ScalarProperty Name="ClassifyName" ColumnName="ClassifyName" />
+          <ScalarProperty Name="ForumUserID" ColumnName="ForumUserID" />
+          <ScalarProperty Name="ForumAreaID" ColumnName="ForumAreaID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_Get_UsersByCustomer_NotTargetForumArea" FunctionName="DB_BBSModel.Store.SP_Get_UsersByCustomer_NotTargetForumArea">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_BBSModel.SP_Get_UsersByCustomer_NotTargetForumArea_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DBUpdate" FunctionName="DB_BBSModel.Store.DBUpdate" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DB_BBSModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DB_BBSModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DB_BBSModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DB_BBSModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_BBSModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DB_BBSModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_BBSModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DB_BBSModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DB_BBSModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="SP_Get_UsersByCustomer_NotTargetForumClassify" FunctionName="DB_BBSModel.Store.SP_Get_UsersByCustomer_NotTargetForumClassify">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_BBSModel.SP_Get_UsersByCustomer_NotTargetForumClassify_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Get_RoleJoinColumn" FunctionName="DB_BBSModel.Store.SP_Get_RoleJoinColumn">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_BBSModel.SP_Get_RoleJoinColumn_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+          <ScalarProperty Name="JoinID" ColumnName="JoinID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tb_ForumMain">
+      <EntityTypeMapping TypeName="DB_BBSModel.tb_ForumMain">
+        <MappingFragment StoreEntitySet="tb_ForumMain">
+          <ScalarProperty Name="Zan" ColumnName="Zan" />
+          <ScalarProperty Name="IsExamine" ColumnName="IsExamine" />
+          <ScalarProperty Name="Isdelete" ColumnName="Isdelete" />
+          <ScalarProperty Name="IsRecommend" ColumnName="IsRecommend" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+          <ScalarProperty Name="ForumClassifyID" ColumnName="ForumClassifyID" />
+          <ScalarProperty Name="ForumAreaID" ColumnName="ForumAreaID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

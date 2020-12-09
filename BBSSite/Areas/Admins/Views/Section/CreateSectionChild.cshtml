@@ -1,0 +1,80 @@
+﻿@model BBSSite.Areas.Admins.ViewModels.CreateForumClassifyEntity
+@{
+    ViewBag.Title = "创建专区";
+    MyPublic.IGettingUrl Urls = ViewBag.Urls as MyPublic.IGettingUrl;
+}
+@section link{
+    <link rel="stylesheet" href="@Urls.ContentCssUrl/admins/Public.css" />
+}
+@using (Html.BeginForm("DoCreateSectionChild", "Section", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container toppx1">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">选择版主</span>
+                    @Html.DropDownListFor(TB => TB.ForumUserID, (IEnumerable<SelectListItem>)ViewBag.Users, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.ForumUserID)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">专区名称</span>
+                    @Html.TextBoxFor(TB => TB.ClassifyName, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.ClassifyName)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">专区logo</span>
+                    @Html.TextBoxFor(TB => TB.ClassifyLogo, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.ClassifyLogo)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">内容logo</span>
+                    @Html.TextBoxFor(TB => TB.ClassifyInnerLogo, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.ClassifyInnerLogo)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">专区排序</span>
+                    @Html.TextBoxFor(TB => TB.ClassifyOrder, new { @class = "form-control" })
+                    <span class="input-group-addon mymsg">@Html.ValidationMessageFor(model => model.ClassifyOrder)</span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <input type="submit" name="sublogin" class="OnLogin" value="创建" />
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="ForumAreaID" value="@ViewBag.id" />
+}
